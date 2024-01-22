@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../Imgs/logo.png";
 import Cart from './Cart'
+import { refresh } from "aos";
 
 function Navbar({tokencode, setTokenCode}) {
   function toggle() {
@@ -16,7 +17,15 @@ function Navbar({tokencode, setTokenCode}) {
   const Logout = () =>{
     setTokenCode("");
     localStorage.clear();
+    window.refresh();
   }
+
+  // const Logout = () =>{
+  // useEffect(() => {
+  //   setTokenCode("");
+  //   localStorage.clear();
+  // }, [tokencode]);
+  // }
 
   return (
     <div>
@@ -79,7 +88,7 @@ function Navbar({tokencode, setTokenCode}) {
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item">Action</a></li>
                 <li><a class="dropdown-item">Another action</a></li>
-                <li><a class="dropdown-item" onClick={Logout}>Logout</a></li>
+                <li><button class="dropdown-item btn btn-danger" onClick={Logout}>Logout</button></li>
               </ul>
             </div>
             </li>

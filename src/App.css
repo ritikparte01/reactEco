@@ -525,7 +525,7 @@ h3 {
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   padding: 40px;
-  max-width: 400px;
+  max-width: 550px;
   width: 90%;
   text-align: center;
   margin: 0 auto;
@@ -546,12 +546,12 @@ h3 {
 }
 
 .login-form p {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   color: #777;
 }
 
 .input-group {
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 }
 
 .input-group input {

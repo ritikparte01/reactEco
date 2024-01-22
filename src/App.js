@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className="App">
-         {tokencode ? <MainComp tokencode={tokencode} setTokenCode={setTokenCode} /> : <LoginComp tokencode={tokencode} setTokenCode={setTokenCode}  /> }
+         {localStorage.getItem("userToken") ? <MainComp tokencode={tokencode} setTokenCode={setTokenCode} /> : <LoginComp tokencode={tokencode} setTokenCode={setTokenCode}  /> }
     </div>
   );
 }
