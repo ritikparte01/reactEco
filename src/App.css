@@ -9,7 +9,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
-
+  zoom: 85%;
 }
 
 .navbar {
@@ -25,11 +25,11 @@ body {
   /* background: cyan; */
 }
 .menu {
-  width: 30%;
+  width: 40%;
   height: 100%;
 }
 
-.menu ul {
+.menu > ul {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -57,6 +57,10 @@ body {
 .btn.btn-success{
   background: orangered !important;
   border: orangered;
+}
+.dropdown-menu[data-bs-popper]{
+  right: 0;
+  left: inherit;
 }
 
 .hero-text {
@@ -516,6 +520,106 @@ h3 {
 
 
 
+.login-container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  margin: 0 auto;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form h1 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.login-form p {
+  margin-bottom: 20px;
+  color: #777;
+}
+
+.input-group {
+  margin-bottom: 35px;
+}
+
+.input-group input {
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  width: 100%;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.input-group input:focus {
+  border-color: orangered;
+  outline: none;
+}
+
+button {
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: orangered;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: rgb(255, 116, 66);
+}
+
+.bottom-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  color: #777;
+}
+
+.bottom-text p {
+  margin-bottom: 10px;
+}
+
+.bottom-text a {
+  color: orangered;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.bottom-text a:hover {
+  color: #ff7614;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+  .login-container {
+    width: 100%;
+    border-radius: 0;
+  }
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -546,12 +650,12 @@ h3 {
 
 @media only screen and (min-width: 500px) and (max-width: 820px) {
   .home{
-    background: red;
+    /* background: red; */
     flex-direction: column;
   }
   .section-left{
     width: 100% !important;
-    background: cyan;
+    /* background: cyan; */
   }
 
 }

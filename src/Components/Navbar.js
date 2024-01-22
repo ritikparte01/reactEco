@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from "../Imgs/logo.png";
 import Cart from './Cart'
 
-function Navbar() {
+function Navbar({tokencode, setTokenCode}) {
   function toggle() {
     var x = document.getElementById("menu");
     if (x.style.display === "none") {
@@ -13,15 +13,10 @@ function Navbar() {
     }
   }
 
-
-  // function cartShow() {
-  //   var c = document.getElementById("exampleModal");
-  //   if (c.style.display === "none") {
-  //     c.style.display = "block";
-  //   } else {
-  //     c.style.display = "none";
-  //   }
-  // }
+  const Logout = () =>{
+    setTokenCode("");
+    localStorage.clear();
+  }
 
   return (
     <div>
@@ -57,7 +52,7 @@ function Navbar() {
                 Contact
               </Link>
             </li>
-            <li>
+            {/* <li>
               <button
                 type="button"
                 className="btn btn-orange"
@@ -65,6 +60,28 @@ function Navbar() {
               >
                 <i class="uil uil-shopping-bag"></i>
               </button>
+            </li> */}
+             <li>
+              <Link className="menu-link" to="/cart">
+              <button
+                type="button"
+                className="btn btn-orange"
+              >
+                <i class="uil uil-shopping-bag"></i>
+              </button>
+              </Link>
+            </li>
+            <li>
+            <div class="dropdown">
+              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item">Action</a></li>
+                <li><a class="dropdown-item">Another action</a></li>
+                <li><a class="dropdown-item" onClick={Logout}>Logout</a></li>
+              </ul>
+            </div>
             </li>
           </ul>
         </div>
