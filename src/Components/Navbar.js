@@ -17,7 +17,7 @@ function Navbar({tokencode, setTokenCode}) {
   const Logout = () =>{
     setTokenCode("");
     localStorage.clear();
-    window.refresh();
+    // window.refresh();
   }
 
   // const Logout = () =>{

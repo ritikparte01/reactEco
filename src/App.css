@@ -533,6 +533,7 @@ h3 {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transition: .6s;
 }
 
 .login-form {
@@ -605,6 +606,11 @@ button:hover {
   color: #ff7614;
 }
 
+.signUp_btn{
+  color: #ff7614;
+  cursor: pointer;
+  user-select: none;
+}
 /* Responsive */
 @media screen and (max-width: 600px) {
   .login-container {
