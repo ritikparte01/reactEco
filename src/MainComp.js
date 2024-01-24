@@ -16,7 +16,7 @@ function MainComp({tokencode, setTokenCode}) {
       <Navbar tokencode={tokencode} setTokenCode={setTokenCode} />
 
         <Routes>
-        <Route path='/' element={<Home />}/>
+        <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />}/>
         <Route path='/shop' element={<Shop />}/>
         <Route path='/contact' element={<Contact />}/>

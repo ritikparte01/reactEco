@@ -61,6 +61,7 @@ body {
 .dropdown-menu[data-bs-popper]{
   right: 0;
   left: inherit;
+  min-width: 220px;
 }
 
 .hero-text {
@@ -619,12 +620,36 @@ button:hover {
   }
 }
 
+.drop_flex{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  text-transform: capitalize;
+}
+.drop_flex p{
+  margin-bottom: 0;
+  font-weight: bold;
+}
 
+.dropdown-item{
+  padding: 0 10px;
+}
 
+.logout_btn{
+  background: orangered;
+  width: 90%;
+  text-align: center;
+  padding: 5px 20px;
+  margin: 10px auto;
+  color: white;
+  transition: .6s;
+}
 
-
-
-
+.logout_btn:hover{
+  background: black;
+  color: white;
+}
 
 
 

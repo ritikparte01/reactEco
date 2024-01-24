@@ -17,7 +17,9 @@ function HomeProducts(props) {
     });
   }, []);
 
-  
+  console.log('LOCAL TOKEN', localStorage.getItem('userToken'))
+
+ 
   const addToCart = (item) => {
     setCart([...cart, item]);
     console.log(item)

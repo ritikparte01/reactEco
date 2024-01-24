@@ -1,10 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../Imgs/logo.png";
 import Cart from './Cart'
 import { refresh } from "aos";
+import axios from "axios";
 
 function Navbar({tokencode, setTokenCode}) {
+  // const [localToken, setLocalToken] = useState("");
+  const [userId, setUserId] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
+
+
   function toggle() {
     var x = document.getElementById("menu");
     if (x.style.display === "none") {
@@ -20,12 +28,24 @@ function Navbar({tokencode, setTokenCode}) {
     // window.refresh();
   }
 
-  // const Logout = () =>{
-  // useEffect(() => {
-  //   setTokenCode("");
-  //   localStorage.clear();
-  // }, [tokencode]);
-  // }
+  const localToken = localStorage.getItem('userToken');
+
+  useEffect(() => {
+      axios({
+        method: 'GET',
+        url: 'https://api.escuelajs.co/api/v1/auth/profile',
+        headers:{
+          Authorization: `Bearer ${localToken}`,
+        }
+      }).then((res)=>{
+        console.log('Auth log',res);
+        setUserName(res.data.name);
+        setUserEmail(res.data.email);
+        setUserRole(res.data.role);
+        setUserId(res.data.id);
+      })
+  }, [tokencode])
+  
 
   return (
     <div>
@@ -82,13 +102,14 @@ function Navbar({tokencode, setTokenCode}) {
             </li>
             <li>
             <div class="dropdown">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Profile
+              <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Hi ! {userName}
               </button>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item">Action</a></li>
-                <li><a class="dropdown-item">Another action</a></li>
-                <li><button class="dropdown-item btn btn-danger" onClick={Logout}>Logout</button></li>
+                <li><div class="drop_flex"><p>User ID </p><span>{userId}</span></div></li>
+                <li><div class="drop_flex"><p>Email </p><span>{userEmail}</span></div></li>
+                <li><div class="drop_flex"><p>Role </p><span>{userRole}</span></div></li>
+                <li><button class="dropdown-item btn btn-danger logout_btn" onClick={Logout}>Logout</button></li>
               </ul>
             </div>
             </li>
