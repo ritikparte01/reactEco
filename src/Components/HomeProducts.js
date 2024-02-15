@@ -8,6 +8,7 @@ function HomeProducts(props) {
   const [product, setProduct] = useState([]);
   const [isLoading, setLoading] = useState(true)
   const [cart, setCart] = useState([]);
+  const [userId, setUserId] = useState("");
  
   useEffect(() => {
     axios.get(`${props.api}`).then((response) => {
@@ -19,49 +20,42 @@ function HomeProducts(props) {
 
   console.log('LOCAL TOKEN', localStorage.getItem('userToken'))
 
- 
-  const addToCart = (item) => {
-    setCart([...cart, item]);
-    console.log(item)
-  };
+  const localToken = localStorage.getItem('userToken');
 
-  const removeFromCart = (item) => {
-    setCart(cart.filter((i) => i !== item));
-  };
+  useEffect(() => {
+      axios({
+        method: 'GET',
+        url: 'https://api.escuelajs.co/api/v1/auth/profile',
+        headers:{
+          Authorization: `Bearer ${localToken}`,
+        }
+      }).then((res)=>{
+        console.log('Auth log',res);
+        setUserId(res.data.id);
+      })
+  }, [])
 
-  console.log(cart);
+  const addToCart = (productId) =>{
+      console.log('working add to cart');
+      axios({
+        method: 'POST',
+        url: 'https://fakestoreapi.com/carts',
+        data: {
+          userId: `${userId}`,
+          products:[{productId: productId, quantity:1}],
+        }
+      }).then((res)=>{
+        console.log(`POST SUCC PRO ON USER ${userId}`, res);
+      }).catch((err)=>{
+        console.log(err.res);
+      })
+    }
 
   // let priceData = ;
 
   return (
     <div>
-{/* <!-- Modal --> */}
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">You're Cart</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-      <Cart cart={cart} />
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary">Close</button>
-        <button type="button" class="btn btn-success">Buy Now</button>
-      </div>
-    </div>
-  </div>
-</div>
       <div className="container homeproducts flex-column d-flex justify-content-center align-items-center">
-      {/* <Cart cart={cart} /> */}
-      {/* <h3>Cart</h3>
-      <ul>
-        {cart.map((item) => (
-          <li>{item.Cname} ({item.Cprice} €)</li>
-        ))}
-      </ul> */}
-
         <h1 className="heading">
           Recent <span>Launched </span>
         </h1>
@@ -87,6 +81,10 @@ function HomeProducts(props) {
                         </div>
 
                         <div className="stats mt-3">
+                        <div className="d-flex justify-content-between p-price">
+                            <span>Product ID</span>
+                            <span>{item.id}</span>
+                          </div>
                           <div className="d-flex justify-content-between p-price">
                             <span>Price</span>
                             <span>₹ {Math.round(price)}</span>
@@ -101,7 +99,7 @@ function HomeProducts(props) {
                           </div>
                         </div>
                         <div className="d-flex justify-content-between total font-weight-bold mt-4">
-                          <span className="btn btn-secondary"   data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={() => addToCart(item)}>Add to Cart</span>
+                          <span className="btn btn-secondary" onClick={() => addToCart(item.id)}>Add to Cart</span>
                           <span className="btn btn-success">Buy Now</span>
                         </div>
                       </div>
