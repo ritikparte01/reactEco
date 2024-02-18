@@ -7,8 +7,9 @@ import Cart from "./Cart";
 function HomeProducts(props) {
   const [product, setProduct] = useState([]);
   const [isLoading, setLoading] = useState(true)
-  const [cart, setCart] = useState([]);
-  const [userId, setUserId] = useState("");
+  // const [cart, setCart] = useState([]);
+  // const [userId, setUserId] = useState("");
+  const [cartItems, setCartItems] = useState([]);
  
   useEffect(() => {
     axios.get(`${props.api}`).then((response) => {
@@ -18,40 +19,56 @@ function HomeProducts(props) {
     });
   }, []);
 
-  console.log('LOCAL TOKEN', localStorage.getItem('userToken'))
+  // console.log('LOCAL TOKEN', localStorage.getItem('userToken'))
 
-  const localToken = localStorage.getItem('userToken');
+  // const localToken = localStorage.getItem('userToken');
 
-  useEffect(() => {
-      axios({
-        method: 'GET',
-        url: 'https://api.escuelajs.co/api/v1/auth/profile',
-        headers:{
-          Authorization: `Bearer ${localToken}`,
-        }
-      }).then((res)=>{
-        console.log('Auth log',res);
-        setUserId(res.data.id);
-      })
-  }, [])
+  // TOKEN VALIDATION DND -----
+  // useEffect(() => {
+  //     axios({
+  //       method: 'GET',
+  //       url: 'https://api.escuelajs.co/api/v1/auth/profile',
+  //       headers:{
+  //         Authorization: `Bearer ${localToken}`,
+  //       }
+  //     }).then((res)=>{
+  //       console.log('Auth log',res);
+  //       setUserId(res.data.id);
+  //     })
+  // }, [])
 
-  const addToCart = (productId) =>{
-      console.log('working add to cart');
-      axios({
-        method: 'POST',
-        url: 'https://fakestoreapi.com/carts',
-        data: {
-          userId: `${userId}`,
-          products:[{productId: productId, quantity:1}],
-        }
-      }).then((res)=>{
-        console.log(`POST SUCC PRO ON USER ${userId}`, res);
-      }).catch((err)=>{
-        console.log(err.res);
-      })
-    }
+  // const addToCart = (productId) =>{
+  //     console.log('working add to cart');
+  //     axios({
+  //       method: 'POST',
+  //       url: 'https://fakestoreapi.com/carts',
+  //       data: {
+  //         userId: `${userId}`,
+  //         products:[{productId: productId, quantity:1}],
+  //       }
+  //     }).then((res)=>{
+  //       console.log(`POST SUCC PRO ON USER ${userId}`, res);
+  //     }).catch((err)=>{
+  //       console.log(err.res);
+  //     })
+  //   }
 
   // let priceData = ;
+
+  const addToCart = (productId) => {
+    const productToAdd = product.find((item) => item.id === productId);
+
+    if (!cartItems.find((item) => item.id === productId)) {
+      const newCartItems = [...cartItems, productToAdd];
+      setCartItems(newCartItems);
+      localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+      console.log('Product added to cart:', productToAdd);
+    } else {
+      console.log('Product is already in the cart');
+    }
+  };
+
+  // console.log('Local Cart' ,cartItems) 
 
   return (
     <div>

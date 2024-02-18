@@ -14,7 +14,7 @@ function Contact() {
 
         <div className="mail-box">
           <div className="icon">
-          <i class="uil uil-envelope-check"></i>
+          <i className="uil uil-envelope-check"></i>
           </div>
           <div className="mail-text">
               <p>Mail us at</p>

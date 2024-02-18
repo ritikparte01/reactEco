@@ -56,7 +56,7 @@ function Navbar({tokencode, setTokenCode}) {
         </div>
         <div className="bars">
           <a onClick={toggle}>
-            <i class="uil uil-align-right"></i>
+            <i className="uil uil-align-right"></i>
           </a>
         </div>
         <div className="menu" id="menu">
@@ -87,7 +87,7 @@ function Navbar({tokencode, setTokenCode}) {
                 className="btn btn-orange"
                 data-bs-toggle="modal" data-bs-target="#exampleModal"
               >
-                <i class="uil uil-shopping-bag"></i>
+                <i className="uil uil-shopping-bag"></i>
               </button>
             </li> */}
              <li>
@@ -96,20 +96,20 @@ function Navbar({tokencode, setTokenCode}) {
                 type="button"
                 className="btn btn-orange"
               >
-                <i class="uil uil-shopping-bag"></i>
+                <i className="uil uil-shopping-bag"></i>
               </button>
               </Link>
             </li>
             <li>
-            <div class="dropdown">
-              <button class="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <div className="dropdown">
+              <button className="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Hi ! {userName}
               </button>
-              <ul class="dropdown-menu">
-                <li><div class="drop_flex"><p>User ID </p><span>{userId}</span></div></li>
-                <li><div class="drop_flex"><p>Email </p><span>{userEmail}</span></div></li>
-                <li><div class="drop_flex"><p>Role </p><span>{userRole}</span></div></li>
-                <li><button class="dropdown-item btn btn-danger logout_btn" onClick={Logout}>Logout</button></li>
+              <ul className="dropdown-menu">
+                <li><div className="drop_flex"><p>User ID </p><span>{userId}</span></div></li>
+                <li><div className="drop_flex"><p>Email </p><span>{userEmail}</span></div></li>
+                <li><div className="drop_flex"><p>Role </p><span>{userRole}</span></div></li>
+                <li><button className="dropdown-item btn btn-danger logout_btn" onClick={Logout}>Logout</button></li>
               </ul>
             </div>
             </li>
