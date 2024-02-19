@@ -60,12 +60,16 @@
     height: unset !important;
   }
   .summery{
-    width: 18%;
+    /* width: 18%; */
     background: orangered;
     border-radius: 5px;
     padding: 10px;
     color: white;
     position: relative;
+    max-height: 75vh;
+    max-height: 75vh;
+    height: 100%;
+    margin-bottom: 30px;
   }
   .limit_text{
     display: -webkit-box;
@@ -100,11 +104,46 @@
     font-size: larger;
     color: white;
 }
+.proc_pay{
+  width: 100%;
+  background: #000;
+  color: white;
+}
+.proc_pay:hover{
+  background: #4f4f4f;
+  color: white;
+}
 
 
   @media screen and (max-width: 475px) {
+    .cart_main{
+      flex-direction: column;
+    }
+    .cartCardPer{
+      width: 100%;
+    }
     .card {
       font-size: 0.9em;
+      flex-direction: column !important; 
+      align-items: flex-start;
+      height: max-content;
+      max-height: unset !important;
+    }
+    .cartCardPer .card-body{
+      flex-direction: column;
+    }
+    .cartCardPer .cta-section{
+      width: 100%;
+      max-width: unset;
+      flex-direction: row;
+      padding-top: 30px;
+      align-items: center;
+    }
+    .cartCardPer .text-section{
+      max-width: 100%;
+    }
+    .summery{
+      min-height: 40vh;
     }
   }
   

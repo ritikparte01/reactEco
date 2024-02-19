@@ -91,6 +91,7 @@ function LoginComp({tokencode, setTokenCode}) {
           <h1>Welcome Back</h1>
           <p>Please login to your account</p>
           <div className="input-group">
+            <label>Email</label>
           <input
               type="email"
               id="email"
@@ -102,6 +103,7 @@ function LoginComp({tokencode, setTokenCode}) {
             />
           </div>
           <div className="input-group">
+          <label>Password</label>
             <input
               type="password"
               id="password"
@@ -132,6 +134,7 @@ function LoginComp({tokencode, setTokenCode}) {
           <p>Please login to your account</p>
           <div>
           <div className="input-group">
+            <label>First Name</label>
             <input
               type="text"
               id="name"
@@ -153,6 +156,7 @@ function LoginComp({tokencode, setTokenCode}) {
           </div> */}
           </div>
           <div className="input-group">
+          <label>Email ID</label>
             <input
               type="email"
               id="email"
@@ -163,6 +167,7 @@ function LoginComp({tokencode, setTokenCode}) {
             />
           </div>
           <div className="input-group">
+          <label>Username</label>
             <input
               type="text"
               id="username"
@@ -173,6 +178,7 @@ function LoginComp({tokencode, setTokenCode}) {
             />
           </div>
           <div className="input-group">
+          <label>Password</label>
             <input
               type="password"
               id="password"

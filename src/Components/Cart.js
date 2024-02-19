@@ -71,8 +71,108 @@ function Cart(props) {
     const taxes = 185;
     const total = subtotal + deliveryCharges + taxes;
 
+    // RAZOR PAY START
+
+    // const loadScript = (src) =>{
+    //   return new Promise((resolve) =>{
+    //     const script = document.createElement('script');
+        
+    //     script.src = src;
+
+    //     script.onload = () =>{
+    //       resolve(true);
+    //     }
+
+    //     script.onerror = () =>{
+    //       resolve(false);
+    //     }
+    //     document.body.appendChild(script);
+
+    //   })
+    // }
+
+    // const displayRazorpay = async (amount) => {
+    //   const res = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+
+    //   if(!res){
+    //     alert('Eror');
+    //   }
+    // }
+
+    // const options = {
+    //   key: "rzp_test_0ZMfbjrmGjb8xt",
+    //   currency: "INR",
+    //   amount : total * 100,
+    //   name : "Test Ritik",
+    //   description : 'Thankls',
+
+    //   handler: function (response) {
+    //     alert(response.razorpay_payment_id);
+    //     alert("succ")
+    //   }
+    // }
+
+    // const paymentObject = new window.Razorpay(options);
+    // paymentObject.open();
+
+
+// RAZOR PAY END 
+
+
+
+// DEMO RAZORPAY
+
+const loadScript = (src) => {
+  return new Promise((resolve) => {
+    const script = document.createElement('script');
+    script.src = src;
+
+    script.onload = () => {
+      resolve(true);
+    };
+
+    script.onerror = () => {
+      resolve(false);
+    };
+
+    document.body.appendChild(script);
+  });
+};
+const loadRazorpayScript = async () => {
+  const loaded = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+  if (loaded) {
+    console.log('Razorpay script loaded successfully');
+    initializeRazorpay();
+  } else {
+    console.error('Failed to load Razorpay script');
+  }
+};
+
+const initializeRazorpay = () => {
+  const options = {
+    key: "rzp_test_0ZMfbjrmGjb8xt",
+    currency: "INR",
+    amount: total * 100,
+    name: "Test Ritik",
+    description: 'Thanks',
+    handler: function (response) {
+      alert(response.razorpay_payment_id);
+      alert("Payment successful");
+    }
+  };
+
+  const paymentObject = new window.Razorpay(options);
+  paymentObject.open();
+};
+
+useEffect(() => {
+  loadRazorpayScript();
+}, [total]); // Make sure to trigger script load when total changes
+
+
+
   return (
-    <div className="container d-flex gap-4 mt-4">
+    <div className="container cart_main d-flex gap-4 mt-4 pb-5">
       {cartItems.length === 0 ? (
         <p>Your cart is empty.</p>
       ) : (
@@ -102,13 +202,16 @@ function Cart(props) {
             </div>
           ))}
         </div>
+        <div>
         <div className='summery'>
           <h3 className="text-center mb-3">Summary</h3>
-          <div className="sum_flex"><p>Sub Total</p> <p>₹ {subtotal}/-</p></div>
+          <div className="sum_flex"><p>Sub Total</p> <p>₹ {subtotal.toFixed(2)}/-</p></div>
           <div className="sum_flex"><p>Dilivery Charges</p> <p>₹ {deliveryCharges}/-</p></div>
           <div className="sum_flex"><p>Taxes</p> <p>₹ {taxes}/-</p></div>
           <div className="sum_flex bottom_fix"><p>Total</p> <p>₹ {total}/-</p></div>
         </div>
+        <button className="btn proc_pay" onClick={() => initializeRazorpay(total)}>Proceed to Pay <i class="uil uil-angle-double-right"></i></button>
+</div>
         </>
 
       )}

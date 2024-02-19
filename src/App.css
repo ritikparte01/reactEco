@@ -531,7 +531,7 @@ h3 {
   text-align: center;
   margin: 0 auto;
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
   transition: .6s;
@@ -693,6 +693,12 @@ button:hover {
 
 
 @media only screen and (min-width: 300px) and (max-width: 499px) {
+
+body {
+  font-family: "Poppins", sans-serif;
+  zoom: 100%;
+  user-zoom: fixed;
+}
   
   *{
     /* overflow-y: none; */
@@ -741,6 +747,7 @@ button:hover {
   .menu ul{
     flex-direction: column;
     height: 200px;
+    gap: 20px;
   }
   .home {
     /* background: red; */
@@ -852,7 +859,7 @@ button:hover {
     /* background: red; */
   }
   .about{
-    flex-direction: column-reverse;
+    flex-direction: column-reverse !important; 
     align-items: center;
     width: 90%;
     height: auto;
@@ -868,4 +875,34 @@ button:hover {
     width: 100%;
     
   }
+  .about-footer{
+    padding-bottom: 75px;
+  }
+  .contact{
+    flex-direction: column-reverse !important;
+  }
+  .contact-left{
+    width: 100%;
+  }
+  .contact-left h1{
+    padding-right: 0;
+  }
+  .contact-form{
+    flex-direction: column !important;
+  }
+  .contact-form-left{
+    width: 100%;
+  }
+  .contact-form-right{
+    width: 100%;
+  }
+  .contact-right{
+    width: 100%;
+  }
+  .contact-form-right form{
+    gap: 20px;
+    height: max-content;
+    width: 100%;
+  }
+
 }

@@ -59,6 +59,7 @@ border-color: #ffffff;
 
 /*---------footer---------*/
 footer {
+margin-top: 40px;
 background: linear-gradient(180deg,#000,#692600 35%,#ff6200);
 color: #fff;
 padding: 220px 0;
@@ -188,4 +189,10 @@ margin-top: 30px;
 }
 .open-hours hr {
 margin: 30px 0;
+}
+
+@media screen and (max-width: 475px) {
+.footer{
+    padding-bottom: 0 !important;
+  }
 }
