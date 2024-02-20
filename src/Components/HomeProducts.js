@@ -57,9 +57,13 @@ function HomeProducts(props) {
 
   const addToCart = (productId) => {
     const productToAdd = product.find((item) => item.id === productId);
-
-    if (!cartItems.find((item) => item.id === productId)) {
-      const newCartItems = [...cartItems, productToAdd];
+  
+    // Load existing cart items from local storage
+    const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  
+    if (!existingCartItems.find((item) => item.id === productId)) {
+      // Add the new product to existing cart items
+      const newCartItems = [...existingCartItems, productToAdd];
       setCartItems(newCartItems);
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
       console.log('Product added to cart:', productToAdd);

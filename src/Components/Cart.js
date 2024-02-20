@@ -70,6 +70,7 @@ function Cart(props) {
     const deliveryCharges = 350;
     const taxes = 185;
     const total = subtotal + deliveryCharges + taxes;
+    
 
     // RAZOR PAY START
 
@@ -138,17 +139,8 @@ const loadScript = (src) => {
     document.body.appendChild(script);
   });
 };
-const loadRazorpayScript = async () => {
-  const loaded = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
-  if (loaded) {
-    console.log('Razorpay script loaded successfully');
-    initializeRazorpay();
-  } else {
-    console.error('Failed to load Razorpay script');
-  }
-};
 
-const initializeRazorpay = () => {
+const initializeRazorpay = (total) => {
   const options = {
     key: "rzp_test_0ZMfbjrmGjb8xt",
     currency: "INR",
@@ -165,9 +157,26 @@ const initializeRazorpay = () => {
   paymentObject.open();
 };
 
-useEffect(() => {
-  loadRazorpayScript();
-}, [total]); // Make sure to trigger script load when total changes
+  // const [total, setTotal] = useState(0);
+
+  const handleProceedToPay = () => {
+    loadRazorpayScript();
+  };
+
+  const loadRazorpayScript = async () => {
+    const loaded = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+    if (loaded) {
+      console.log('Razorpay script loaded successfully');
+      initializeRazorpay(total);
+    } else {
+      console.error('Failed to load Razorpay script');  
+    }
+  };
+
+  useEffect(() => {
+    // Your useEffect will be triggered only when the 'total' state changes
+    // (assuming it's updated when the user selects items or performs relevant actions)
+  }, [total]);
 
 
 
@@ -210,7 +219,7 @@ useEffect(() => {
           <div className="sum_flex"><p>Taxes</p> <p>₹ {taxes}/-</p></div>
           <div className="sum_flex bottom_fix"><p>Total</p> <p>₹ {total}/-</p></div>
         </div>
-        <button className="btn proc_pay" onClick={() => initializeRazorpay(total)}>Proceed to Pay <i class="uil uil-angle-double-right"></i></button>
+        <button className="btn proc_pay" onClick={() => handleProceedToPay(total)}>Proceed to Pay <i class="uil uil-angle-double-right"></i></button>
 </div>
         </>
 
