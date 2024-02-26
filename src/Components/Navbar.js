@@ -24,8 +24,8 @@ function Navbar({tokencode, setTokenCode}) {
 
   const Logout = () =>{
     setTokenCode("");
-    localStorage.clear();
-    // window.refresh();
+    localStorage.clear('userToken');
+    window.refresh();
   }
 
   const localToken = localStorage.getItem('userToken');

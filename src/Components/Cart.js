@@ -7,6 +7,7 @@ function Cart(props) {
   // const [cart, setCart] = useState([]);
   // const [idProd, setIdProd] = useState([]);
   // const [cartIdProd, setCartIdProd] = useState([]);
+  const [userName, setUserName] = useState("");
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -57,6 +58,20 @@ function Cart(props) {
   // }, [cartIdProd]);
 
   console.log("Local Cart", cartItems);
+
+  const localToken = localStorage.getItem('userToken');
+
+  useEffect(() => {
+      axios({
+        method: 'GET',
+        url: 'https://api.escuelajs.co/api/v1/auth/profile',
+        headers:{
+          Authorization: `Bearer ${localToken}`,
+        }
+      }).then((res)=>{
+        setUserName(res.data.name);
+      })
+  }, [])
   
     // Function to remove an item from the cart
     const removeFromCart = (productId) => {
@@ -66,7 +81,7 @@ function Cart(props) {
     };
 
 
-    const subtotal = cartItems.reduce((sum, item) => sum + item.price, 0);
+    const subtotal = cartItems.reduce((sum, item) => sum + item.price * 10, 0);
     const deliveryCharges = 350;
     const taxes = 185;
     const total = subtotal + deliveryCharges + taxes;
@@ -145,7 +160,7 @@ const initializeRazorpay = (total) => {
     key: "rzp_test_0ZMfbjrmGjb8xt",
     currency: "INR",
     amount: total * 100,
-    name: "Test Ritik",
+    name: `${userName}`,
     description: 'Thanks',
     handler: function (response) {
       alert(response.razorpay_payment_id);
@@ -189,20 +204,16 @@ const initializeRazorpay = (total) => {
         <div className="cartCardPer">
           {cartItems.map((item) => (
             <div class="card bg-light">
-              <img src={item.image} class="card-img-top" alt={item.title} />
+              <img src={item.images[0]} class="card-img-top" alt={item.title} />
               <div class="card-body">
                 <div class="text-section">
                   <h5 class="card-title">{item.title}</h5>
                   <p class="card-text limit_text">
                     {item.description}
                   </p>
-                  <div className="d-flex gap-5">
-                    <span>Rating : <span className="orange_font">{item.rating.rate}</span>/5</span>
-                    <span>Rating Count : <span className="orange_font">{item.rating.count}</span></span>
-                  </div>
                 </div>
                 <div class="cta-section">
-                  <div className="orange_font">₹ {item.price} /-</div>
+                  <div className="orange_font">₹ {item.price * 10} /-</div>
                   <a href="#" class="btn btn-danger" onClick={() => removeFromCart(item.id)} >
                   <i class="uil uil-trash-alt"></i> Remove Item
                   </a>
@@ -219,7 +230,7 @@ const initializeRazorpay = (total) => {
           <div className="sum_flex"><p>Taxes</p> <p>₹ {taxes}/-</p></div>
           <div className="sum_flex bottom_fix"><p>Total</p> <p>₹ {total}/-</p></div>
         </div>
-        <button className="btn proc_pay" onClick={() => handleProceedToPay(total)}>Proceed to Pay <i class="uil uil-angle-double-right"></i></button>
+        <button className="btn proc_pay" onClick={() => handleProceedToPay(total.toFixed(2))}>Proceed to Pay <i class="uil uil-angle-double-right"></i></button>
 </div>
         </>
 

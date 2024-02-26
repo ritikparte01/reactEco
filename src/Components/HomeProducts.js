@@ -15,7 +15,7 @@ function HomeProducts(props) {
     axios.get(`${props.api}`).then((response) => {
       setProduct(response.data);
       setLoading(false)
-      // console.log(product);
+      console.log(product);
     });
   }, []);
 
@@ -91,13 +91,13 @@ function HomeProducts(props) {
                     <i className="fa fa-apple"></i>
                     <div className="about-product text-center mt-2">
                       <div className="card-img-box">
-                        <img src={item.image} />
+                        {/* <img src={item.images} /> */}
                       </div>
                       <div className="card-text">
                         <div>
                           <h4 className="item-title">{item.title}</h4>
                           <h6 className="mt-0 text-black-50">
-                            {item.category}
+                            {item.category.name}
                           </h6>
                         </div>
 
@@ -108,15 +108,11 @@ function HomeProducts(props) {
                           </div>
                           <div className="d-flex justify-content-between p-price">
                             <span>Price</span>
-                            <span>₹ {Math.round(price)}</span>
+                            <span>₹ {item.price * 10}</span>
                           </div>
                           <div className="d-flex justify-content-between p-price">
-                            <span>Rating</span>
-                            <span>{item.rating.rate}</span>
-                          </div>
-                          <div className="d-flex justify-content-between p-price">
-                            <span>Review Count</span>
-                            <span>{item.rating.count}</span>
+                            <span>Updated At</span>
+                            <span>{item.updatedAt}</span>
                           </div>
                         </div>
                         <div className="d-flex justify-content-between total font-weight-bold mt-4">

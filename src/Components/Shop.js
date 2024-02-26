@@ -4,7 +4,7 @@ import HomeProducts from './HomeProducts'
 function Shop() {
   return (
     <div>
-        <HomeProducts api={"https://fakestoreapi.com/products?"} />
+        <HomeProducts api={"https://api.escuelajs.co/api/v1/products"} />
     </div>
   )
 }

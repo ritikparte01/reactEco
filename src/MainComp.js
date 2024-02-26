@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Home from './Components/Home';
 import About from './Components/About';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './Components/Navbar';
 import Shop from './Components/Shop';
 import Contact from './Components/Contact';
@@ -10,6 +10,20 @@ import Cart from './Components/Cart';
 
 function MainComp({tokencode, setTokenCode}) {
     // const [token, settoken] = useState(localStorage.getItem("userToken") ?? null );
+    useEffect(() => {
+      const handleBeforeUnload = (event) => {
+        // Redirect to the home page when the user tries to refresh
+        event.preventDefault();
+        window.location.href = '/';
+        
+      };
+      window.addEventListener('beforeunl;oa*-d', handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+      };
+    }, []);
+  
   return <div>
     
     <Router>
