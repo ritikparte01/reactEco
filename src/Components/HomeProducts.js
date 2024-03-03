@@ -3,6 +3,20 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CardSkeleton from "./CardSkeleton";
 import Cart from "./Cart";
+import { Toaster, toast } from 'sonner'
+
+// ...
+
+function App() {
+  return (
+    <div>
+      <Toaster />
+      <button onClick={() => toast('My first toast')}>
+        Give me a toast
+      </button>
+    </div>
+  )
+}
 
 function HomeProducts(props) {
   const [product, setProduct] = useState([]);
@@ -67,6 +81,7 @@ function HomeProducts(props) {
       setCartItems(newCartItems);
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
       console.log('Product added to cart:', productToAdd);
+      // toast('My first toast');
     } else {
       console.log('Product is already in the cart');
     }
