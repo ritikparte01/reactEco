@@ -6,7 +6,7 @@ function Shop() {
     <div>
         <HomeProducts api={"https://api.escuelajs.co/api/v1/products"} />
     </div>
-  )
+  );
 }
 
 export default Shop

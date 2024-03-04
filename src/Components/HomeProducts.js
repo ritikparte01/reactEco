@@ -5,18 +5,7 @@ import CardSkeleton from "./CardSkeleton";
 import Cart from "./Cart";
 import { Toaster, toast } from 'sonner'
 
-// ...
 
-function App() {
-  return (
-    <div>
-      <Toaster />
-      <button onClick={() => toast('My first toast')}>
-        Give me a toast
-      </button>
-    </div>
-  )
-}
 
 function HomeProducts(props) {
   const [product, setProduct] = useState([]);
@@ -32,6 +21,11 @@ function HomeProducts(props) {
       console.log(product);
     });
   }, []);
+
+  const defaultImageUrl = 'https://digiday.com/wp-content/uploads/sites/3/2021/11/blockchain-broken-gif.gif?w=1030&h=579&crop=1';
+    const handleImageError = (event) => {
+    event.target.src = defaultImageUrl;
+  };
 
   // console.log('LOCAL TOKEN', localStorage.getItem('userToken'))
 
@@ -74,23 +68,25 @@ function HomeProducts(props) {
   
     // Load existing cart items from local storage
     const existingCartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  
+
     if (!existingCartItems.find((item) => item.id === productId)) {
       // Add the new product to existing cart items
       const newCartItems = [...existingCartItems, productToAdd];
       setCartItems(newCartItems);
       localStorage.setItem('cartItems', JSON.stringify(newCartItems));
       console.log('Product added to cart:', productToAdd);
-      // toast('My first toast');
+      toast.success('Product Added in Cart');
     } else {
       console.log('Product is already in the cart');
+      toast.error('Product is Already in the Cart');
     }
   };
 
   // console.log('Local Cart' ,cartItems) 
 
   return (
-    <div>
+    <div className="home_per">
+         <Toaster position="top-right" richColors closeButton />
       <div className="container homeproducts flex-column d-flex justify-content-center align-items-center">
         <h1 className="heading">
           Recent <span>Launched </span>
@@ -106,7 +102,7 @@ function HomeProducts(props) {
                     <i className="fa fa-apple"></i>
                     <div className="about-product text-center mt-2">
                       <div className="card-img-box">
-                        {/* <img src={item.images} /> */}
+                        <img src={item.images}  onError={handleImageError} />
                       </div>
                       <div className="card-text">
                         <div>

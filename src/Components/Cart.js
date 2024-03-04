@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./cartCard.css";
+import { Player } from '@lottiefiles/react-lottie-player';
+import { Toaster, toast } from 'sonner'
+import Swal from 'sweetalert2'
 
 function Cart(props) {
   // const [userId, setUserId] = useState("");
@@ -78,6 +81,7 @@ function Cart(props) {
       const updatedCartItems = cartItems.filter((item) => item.id !== productId);
       setCartItems(updatedCartItems);
       localStorage.setItem('cartItems', JSON.stringify(updatedCartItems));
+      toast.error('Product Removed');
     };
 
 
@@ -163,8 +167,13 @@ const initializeRazorpay = (total) => {
     name: `${userName}`,
     description: 'Thanks',
     handler: function (response) {
-      alert(response.razorpay_payment_id);
-      alert("Payment successful");
+      // alert(response.razorpay_payment_id);
+      // alert("Payment successful");
+      Swal.fire({
+        title: "Payment successful",
+        text: `Payment Reciept ID:  ${response.razorpay_payment_id}`,
+        icon: "success"
+      });
     }
   };
 
@@ -194,17 +203,32 @@ const initializeRazorpay = (total) => {
   }, [total]);
 
 
+  const defaultImageUrl = 'https://digiday.com/wp-content/uploads/sites/3/2021/11/blockchain-broken-gif.gif?w=1030&h=579&crop=1';
+  const handleImageError = (event) => {
+  event.target.src = defaultImageUrl;
+};
 
   return (
+    
     <div className="container cart_main d-flex gap-4 mt-4 pb-5">
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+       <Toaster position="top-right" richColors closeButton />
+      {cartItems.length === 0 ? (  
+        <div className="empty_cart">   
+        <Player
+        autoplay
+        loop
+        src="https://lottie.host/88a15f65-b6e8-4941-96cc-ecab7daa3d33/iTRmDAEdRg.json"
+        style={{ height: '40%', width: '40%' }}
+      >
+      </Player>
+      <p className="text-center display-5">Your Cart is Empty!!!</p> 
+      </div>
       ) : (
         <>
         <div className="cartCardPer">
           {cartItems.map((item) => (
             <div class="card bg-light">
-              <img src={item.images[0]} class="card-img-top" alt={item.title} />
+              <img src={item.images[0]} onError={handleImageError} class="card-img-top" alt={item.title} />
               <div class="card-body">
                 <div class="text-section">
                   <h5 class="card-title">{item.title}</h5>

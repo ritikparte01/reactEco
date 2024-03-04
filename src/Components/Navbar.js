@@ -4,6 +4,7 @@ import logo from "../Imgs/logo.png";
 import Cart from './Cart'
 import { refresh } from "aos";
 import axios from "axios";
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
 
 function Navbar({tokencode, setTokenCode}) {
   // const [localToken, setLocalToken] = useState("");
@@ -94,9 +95,16 @@ function Navbar({tokencode, setTokenCode}) {
               <Link className="menu-link" to="/cart">
               <button
                 type="button"
-                className="btn btn-orange"
+                className="btn-orange"
               >
-                <i className="uil uil-shopping-bag"></i>
+                {/* <i className="uil uil-shopping-bag"></i> */}
+                  <Player
+                    autoplay
+                    loop
+                    src="https://lottie.host/e755e47b-5c14-4857-90d9-aa6223c88db1/EPYxhttqDn.json"
+                    style={{ height: '50px', width: '50px' }}
+                  >
+                  </Player>
               </button>
               </Link>
             </li>
