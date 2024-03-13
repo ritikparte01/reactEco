@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../Imgs/logo.png";
+import logo from "../Imgs/black_logo.png";
 import Cart from './Cart'
 import { refresh } from "aos";
 import axios from "axios";
@@ -24,9 +24,11 @@ function Navbar({tokencode, setTokenCode}) {
   }
 
   const Logout = () =>{
+    if (typeof window.refresh === 'function') {
+      window.refresh();
+    }
     setTokenCode("");
     localStorage.clear('userToken');
-    window.refresh();
   }
 
   const localToken = localStorage.getItem('userToken');

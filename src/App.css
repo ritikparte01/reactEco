@@ -11,7 +11,9 @@ body {
   font-family: "Poppins", sans-serif;
   zoom: 85%;
 }
-
+.home{
+  margin-top: 80px;
+}
 .navbar {
   /* background: red; */
   height: 80px;
@@ -20,7 +22,7 @@ body {
   display: none;
 }
 .logo img {
-  width: 50%;
+  width: 150px;
   height: 20%;
   /* background: cyan; */
 }
@@ -73,7 +75,7 @@ body {
 }
 
 .hero-text p {
-  width: 55%;
+  width: 70%;
   font-size: 18px;
   color: rgb(68, 68, 68);
 }
@@ -82,7 +84,7 @@ body {
   width: 85%;
   height: 230px;
   margin-top: 80px;
-  background: url(./Imgs/hero-vid.png) center/cover;
+  background: url(./Imgs/shop.me.gif) center/contain;
 }
 
 .hero-vid img {
@@ -248,6 +250,11 @@ h3 {
   color: orangered;
 }
 
+
+.orange_text {
+  color: orangered;
+}
+
 .homeproducts {
   /* background: red; */
   height: auto;
@@ -259,7 +266,7 @@ h3 {
 }
 
 .heading span {
-  color: rgb(0, 88, 136);
+  color: #000;
 }
 
 /* card */
@@ -312,6 +319,7 @@ h3 {
   -webkit-line-clamp: 3; /* number of lines to show */
   line-clamp: 3;
   -webkit-box-orient: vertical;
+  height: 55px;
 }
 
 
@@ -673,6 +681,7 @@ button:hover {
 @media only screen and (min-width: 821px) and (max-width: 1280px) {
   .home {
     /* background: red; */
+
   }
 
   .section-right {

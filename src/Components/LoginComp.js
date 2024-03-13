@@ -25,7 +25,7 @@ function LoginComp({tokencode, setTokenCode}) {
       .then((res) => {
         console.log("assdsadsdas", res.data.access_token);
         setTokenCode(res.data.access_token);
-        localStorage.setItem(`userToken_${userId}`, res.data.access_token);
+        localStorage.setItem(`userToken`, res.data.access_token);
         console.log(tokencode);
         console.log("check ls", localStorage.getItem("userToken"))
       })
