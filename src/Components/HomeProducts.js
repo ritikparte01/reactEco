@@ -5,6 +5,7 @@ import CardSkeleton from "./CardSkeleton";
 import Cart from "./Cart";
 import { Toaster, toast } from 'sonner'
 import Footer from "./Footer";
+import { useNavigate  } from 'react-router-dom';
 
 
 
@@ -37,6 +38,16 @@ function HomeProducts(props) {
   const handleImageError = (event) => {
     event.target.src = defaultImageUrl;
   };
+
+  let navigate = useNavigate();
+
+  const buyBtn = (productId) => { 
+    // const buyBtnID = '';
+     console.log(productId, 'ID BUY');
+     localStorage.setItem('buyBtnID', productId);
+     navigate('/detail');
+    window.scrollTo(0, 0);
+  }
 
   // console.log('LOCAL TOKEN', localStorage.getItem('userToken'))
 
@@ -143,7 +154,7 @@ const addToCart = (productId, userId) => {
                           </div>
                           <div className="d-flex justify-content-between total font-weight-bold mt-4">
                             <span className="btn btn-dark" onClick={() => addToCart(item.id)}>Add to Cart</span>
-                            <span className="btn btn-success">Buy Now</span>
+                            <span className="btn btn-success" onClick={() => buyBtn(item.id)}>Buy Now</span>
                           </div>
                         </div>
                       </div>

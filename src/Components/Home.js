@@ -11,7 +11,7 @@ function Home() {
     <div>
         <Hero />
       <Offer />
-      <HomeProducts api={"https://fakestoreapi.com/products?limit=6"} />
+      <HomeProducts api={"https://api.escuelajs.co/api/v1/products?offset=0&limit=6"} />
       <Subscribe/>
       <Slider />
       <Footer/>
