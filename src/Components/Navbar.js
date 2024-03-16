@@ -5,6 +5,7 @@ import Cart from './Cart'
 import { refresh } from "aos";
 import axios from "axios";
 import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import { useNavigate  } from 'react-router-dom';
 
 function Navbar({tokencode, setTokenCode}) {
   // const [localToken, setLocalToken] = useState("");
@@ -23,12 +24,16 @@ function Navbar({tokencode, setTokenCode}) {
     }
   }
 
+  let navigate = useNavigate();
+
   const Logout = () =>{
     if (typeof window.refresh === 'function') {
       window.refresh();
     }
     setTokenCode("");
     localStorage.clear('userToken');
+    navigate('/');
+    // window.refresh();
   }
 
   const localToken = localStorage.getItem('userToken');

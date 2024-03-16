@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
+// import { useNavigate  } from 'react-router-dom';
 
 function LoginComp({tokencode, setTokenCode}) {
 //   const [token, setToken] = useState("");
@@ -11,6 +12,9 @@ function LoginComp({tokencode, setTokenCode}) {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [userId, setUserId] = useState("");
+  
+
+  // let navigate = useNavigate();
 
   const checkLogin = () => {
     console.log("test");
@@ -27,7 +31,8 @@ function LoginComp({tokencode, setTokenCode}) {
         setTokenCode(res.data.access_token);
         localStorage.setItem(`userToken`, res.data.access_token);
         console.log(tokencode);
-        console.log("check ls", localStorage.getItem("userToken"))
+        console.log("check ls", localStorage.getItem("userToken"));
+        // navigate('/');
       })
       .catch((err) => {
         console.log("Err", err);
