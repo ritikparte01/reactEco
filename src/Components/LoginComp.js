@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from 'sweetalert2'
 // import { useNavigate  } from 'react-router-dom';
@@ -12,7 +12,23 @@ function LoginComp({tokencode, setTokenCode}) {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [userId, setUserId] = useState("");
+  const [oneClick, setOneClick] = useState(false);
   
+
+
+  const handleOneClick = ()=>{
+    setOneClick(true);
+    console.log('Testttt')
+  }
+
+
+  // useEffect(() => {
+  //   window.otpless = (otplessUser) => {
+  //    alert(JSON.stringify(otplessUser));
+  //   };
+  //  }, [oneClick]);
+
+              
 
   // let navigate = useNavigate();
 
@@ -89,7 +105,7 @@ function LoginComp({tokencode, setTokenCode}) {
 
 
   return (
-    <div>
+    <div className="login_per">
       {isSignUp ? 
       <div className="login-container">
         <div className="login-form">
@@ -127,6 +143,7 @@ function LoginComp({tokencode, setTokenCode}) {
                 <br /> Sign Up
               </a>
             </p>
+            {/* <button onClick={()=> handleOneClick}>One Click</button> */}
           </div>
         </div>
       </div>

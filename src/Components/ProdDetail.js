@@ -3,6 +3,8 @@ import './prodDetail.css'
 import axios from "axios";
 import Footer from "./Footer";
 import Swal from 'sweetalert2'
+import Loader from "./Loader";
+import { useNavigate } from 'react-router-dom';
 
 function ProdDetail() {
     const [singleProduct, setSingleProduct] = useState("");
@@ -14,6 +16,10 @@ function ProdDetail() {
     const [discount, setDiscount] = useState("");
     const [userName, setUserName] = useState("");
     const [paymentID, setPaymentID] = useState("");
+    const [isLoading, setLoading] = useState(true);
+    const [isClothes, setIsClothes] = useState(false);
+
+
 
     console.log(localStorage.getItem('buyBtnID'));
 
@@ -52,6 +58,10 @@ function ProdDetail() {
                     console.log('Catego ID', catId);
                     setSinglePrice(response.data.price * 10);
                     console.log(singlePrice, 'Single Price 10');
+                    if (catId === 1) {
+                        setIsClothes(true);
+                    }
+
                 })
                 .catch(error => {
                     console.error("Error fetching product:", error);
@@ -66,6 +76,8 @@ function ProdDetail() {
                 .then(response => {
                     setSimilerProduct(response.data);
                     console.log("Similer products:", response.data);
+                    setLoading(false);
+
                 })
                 .catch(error => {
                     console.error("Error fetching product:", error);
@@ -76,6 +88,9 @@ function ProdDetail() {
 
 
     // DEMO RAZORPAY
+
+
+    let navigate = useNavigate();
 
     const loadScript = (src) => {
         return new Promise((resolve) => {
@@ -111,6 +126,7 @@ function ProdDetail() {
                     text: `Payment Reciept ID:  ${response.razorpay_payment_id}`,
                     icon: "success"
                 })
+                navigate('/confirmation');
 
             }
         };
@@ -144,10 +160,16 @@ function ProdDetail() {
     // RAZOR PAY END 
 
 
+    const defaultImageUrl = 'https://digiday.com/wp-content/uploads/sites/3/2021/11/blockchain-broken-gif.gif?w=1030&h=579&crop=1';
+    const handleImageError = (event) => {
+        event.target.src = defaultImageUrl;
+    };
+
 
     return (
         <>
             <div className='container'>
+                {isLoading && <Loader />}
                 <div className="container my-5">
                     <div>
                         <div className="row">
@@ -188,20 +210,20 @@ function ProdDetail() {
                                     <p className="details-title text-color mb-1 text-dark text-bold fw-bold">Product Details</p>
                                     <p className="description">{singleProduct.description}</p>
                                 </div>
+                                {isClothes &&
+                                    <div>
+                                        <select className="size_selector">
+                                            <option value="Null">Select Size</option>
+                                            <option value="xs">Xs</option>
+                                            <option value="s">S</option>
+                                            <option value="m">M</option>    
+                                            <option value="l">L</option>
+                                            <option value="xl">Xl</option>
+                                            <option value="xxl">Xxl</option>
+                                        </select>
 
-                                <div>
-
-                                    <select className="size_selector">
-                                        <option value="Null">Select Size</option>
-                                        <option value="xs">Xs</option>
-                                        <option value="s">S</option>
-                                        <option value="m">M</option>
-                                        <option value="l">L</option>
-                                        <option value="xl">Xl</option>
-                                        <option value="xxl">Xxl</option>
-                                    </select>
-
-                                </div>
+                                    </div>
+                                }
 
 
                                 <div className="delivery my-4">
@@ -238,7 +260,7 @@ function ProdDetail() {
                             return (
                                 <div className="col-md-3">
                                     <div className="similar-product">
-                                        {singleProduct?.images?.length > 0 && <img className="w-100 sim_img" src={item.images[0]} alt="Preview" />}
+                                        {singleProduct?.images?.length > 0 && <img className="w-100 sim_img" src={item.images[0]} onError={handleImageError} alt="Preview" />}
                                         <p className="title">{item.title}</p>
                                         <p className="price">₹ {item.price * 10}</p>
                                     </div>

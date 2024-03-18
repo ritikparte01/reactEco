@@ -125,5 +125,24 @@ text-color {
         width: 100%;
         height: auto;
     }
+    .previews .col-md-6{
+        width: 50% !important;
+    }
 
+    .previews .col-md-6 img{
+        height: auto !important;
+    }
+    .main-img img{
+        height: 350px;
+    }
+    .container.my-4{
+        margin-top: 20px !important;
+    }
+
+    .buttons .block{
+        margin-right: 0;
+    }
+    .buttons{
+        justify-content: space-between;
+    }
 }

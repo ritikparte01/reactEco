@@ -1,9 +1,9 @@
 import React from 'react'
 
-function confirmation() {
+function Confirmation() {
   return (
-    <div>confirmation</div>
+    <div className='container'>confirmation</div>
   )
 }
 
-export default confirmation
+export default Confirmation
