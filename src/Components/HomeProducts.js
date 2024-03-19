@@ -124,9 +124,10 @@ const addToCart = (productId, userId) => {
               return (
                 <div>
                   <div className="row mt-5">
-                    <div className="card p-3 bg-white">
+                    {/* <div className="card p-3 bg-white">
                       <i className="fa fa-apple"></i>
                       <div className="about-product text-center mt-2">
+                        <div className="card_div"  onClick={() => buyBtn(item.id)}>
                         <div className="card-img-box">
                           <img src={item.images} onError={handleImageError} />
                         </div>
@@ -152,13 +153,42 @@ const addToCart = (productId, userId) => {
                               <span>{item.updatedAt}</span>
                             </div>
                           </div>
-                          <div className="d-flex justify-content-between total font-weight-bold mt-4">
-                            <span className="btn btn-dark" onClick={() => addToCart(item.id)}>Add to Cart</span>
-                            <span className="btn btn-success" onClick={() => buyBtn(item.id)}>Buy Now</span>
                           </div>
+                      
                         </div>
+                        <div className="d-flex justify-content-between total font-weight-bold mt-4">
+                            <span className="btn btn-success">  <i class="uil uil-heart"></i></span>
+                            <span className="btn btn-dark" onClick={() => addToCart(item.id)}>Add to Cart</span>
+                          
+                          </div>
                       </div>
+                    </div> */}
+
+                    <div className="new_card">
+                    <div className="card-img-box"  onClick={() => buyBtn(item.id)}>
+                          <img src={item.images} onError={handleImageError} />
+                        </div>
+
+                        <div className="backdrop">
+                        <h6 className="item-title">{item.title}</h6>
+                        <p className="desc_line">{item.description}</p>
+                        </div>
+
+                        <div className="d-flex justify-content-between total font-weight-bold my-4 px-3">
+                            <span className="btn btn-light text-black cust_shadow">  <i class="uil uil-heart"></i> Wishlist</span>
+                            <span className="btn btn-success cust_shadow" onClick={() => addToCart(item.id)}>Add to Cart</span>
+                          
+                          </div>
                     </div>
+
+
+
+
+
+
+
+
+
                   </div>
                 </div>
               );

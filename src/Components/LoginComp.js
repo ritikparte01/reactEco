@@ -13,7 +13,7 @@ function LoginComp({tokencode, setTokenCode}) {
   const [email, setEmail] = useState("");
   const [userId, setUserId] = useState("");
   const [oneClick, setOneClick] = useState(false);
-  
+  const [otpLessAuth, setOtpLessAuth] = useState([]);
 
 
   const handleOneClick = ()=>{
@@ -25,8 +25,11 @@ function LoginComp({tokencode, setTokenCode}) {
   // useEffect(() => {
   //   window.otpless = (otplessUser) => {
   //    alert(JSON.stringify(otplessUser));
+  //    console.log(JSON.stringify(otplessUser));
+  //    setOtpLessAuth(JSON.stringify(otplessUser));
+  //    console.log(otpLessAuth);
   //   };
-  //  }, [oneClick]);
+  //  }, []);
 
               
 
@@ -105,6 +108,7 @@ function LoginComp({tokencode, setTokenCode}) {
 
 
   return (
+    <>
     <div className="login_per">
       {isSignUp ? 
       <div className="login-container">
@@ -143,7 +147,6 @@ function LoginComp({tokencode, setTokenCode}) {
                 <br /> Sign Up
               </a>
             </p>
-            {/* <button onClick={()=> handleOneClick}>One Click</button> */}
           </div>
         </div>
       </div>
@@ -166,16 +169,6 @@ function LoginComp({tokencode, setTokenCode}) {
               onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
-          {/* <div className="input-group">
-            <input
-              type="text"
-              id="lastname"
-              name="lastname"
-              placeholder="Last Name"
-              required
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </div> */}
           </div>
           <div className="input-group">
           <label>Email ID</label>
@@ -225,6 +218,7 @@ function LoginComp({tokencode, setTokenCode}) {
   }
 
     </div>
+    </>
   );
 }
 

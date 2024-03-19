@@ -10,8 +10,8 @@ function Home() {
   return (
     <div>
         <Hero />
-      <Offer />
       <HomeProducts api={"https://api.escuelajs.co/api/v1/products?offset=0&limit=6"} />
+      <Offer />
       <Subscribe/>
       <Slider />
       <Footer/>
