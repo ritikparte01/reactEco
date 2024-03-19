@@ -1,4 +1,4 @@
-# React E-Commerce Website Project
+# React E-Commerce Website Project Shop.My
 
 # Overview
 
