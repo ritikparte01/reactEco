@@ -27,6 +27,13 @@ Fake Store API: The Fake Store API is used for retrieving and managing product d
 
 Razorpay: In this project, I've integrated the Razorpay payment gateway in test mode for seamless transactions. Razorpay offers robust APIs and tools for handling online payments securely. By leveraging Razorpay's services, this project ensures a smooth and reliable payment experience for users. Integrating Razorpay into the project enables easy handling of transactions, enhancing the overall functionality and user experience.
 
+# CodeQL Integration for Security Checks:
+CodeQL is a powerful static code analysis tool that enables developers to uncover security vulnerabilities and bugs in their codebase. Leveraging its advanced query language, CodeQL performs deep semantic code analysis, identifying potential security threats, data leaks, and other issues. By integrating CodeQL into your development workflow, you can proactively detect and mitigate security risks early in the development process.
+
+Implementation in GitHub Actions:
+
+In this project, CodeQL has been integrated into GitHub Actions to conduct security checks on the React frontend code. With this setup, every code push triggers CodeQL analysis automatically, ensuring continuous monitoring of code quality and security. By leveraging CodeQL within GitHub Actions, potential vulnerabilities and security weaknesses are identified promptly, allowing for swift remediation and ensuring the robustness and security of the React application.
+
 
 # How to Run:
 
