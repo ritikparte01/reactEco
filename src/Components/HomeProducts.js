@@ -111,7 +111,7 @@ const addToCart = (productId, userId) => {
 
   return (
     <>
-      <div className="home_per">
+      <div className="home_per mt-5">
         <Toaster position="top-right" richColors closeButton />
         <div className="container homeproducts flex-column d-flex justify-content-center align-items-center">
           <h1 className="heading">
@@ -174,10 +174,10 @@ const addToCart = (productId, userId) => {
                         <p className="desc_line">{item.description}</p>
                         </div>
 
-                        <div className="d-flex justify-content-between total font-weight-bold my-4 px-3">
-                            <span className="btn btn-light text-black cust_shadow">  <i class="uil uil-heart"></i> Wishlist</span>
+                        <div className="d-flex justify-content-between align-items-center total font-weight-bold my-4 px-3">
+                            <span className="btn wishlist">  <i class="uil uil-heart"></i></span>
                             <span className="btn btn-success cust_shadow" onClick={() => addToCart(item.id)}>Add to Cart</span>
-                          
+                            <span className="price_text">₹ {item.price.toFixed(2) * 10} /-</span>
                           </div>
                     </div>
 

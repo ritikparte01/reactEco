@@ -56,7 +56,7 @@ function Navbar({tokencode, setTokenCode}) {
   
 
   return (
-    <div>
+    <div className="nav_par">
       <div className="container navbar">
       {/* <Cart /> */}
         <div className="logo">

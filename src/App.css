@@ -18,9 +18,17 @@ body {
 .home{
   margin-top: 80px;
 }
+.nav_par{
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  /* border-bottom: 1px solid #e6e6e6; */
+  background: white;
+}
 .navbar {
   /* background: red; */
   height: 80px;
+  
 }
 .bars{
   display: none;
@@ -63,6 +71,9 @@ body {
 .btn.btn-success{
   background: orangered !important;
   border: orangered;
+  height: 43px;
+  display: flex;
+  align-items: center;
 }
 .dropdown-menu[data-bs-popper]{
   right: 0;
@@ -286,16 +297,18 @@ h3 {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   cursor: pointer;
+  height: 350px;
+  overflow: hidden;
+  transition: .6s ease-in-out;
   /* width: 300px;
-  height: 320px;
   object-fit: contain;
   margin: auto; */
 }
 
 .card-img-box img {
   width: 100%;
-  height: auto !important;
-  object-fit: contain;
+  height: 100%;
+  object-fit: cover;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   /* padding-bottom: 30px; */
@@ -738,14 +751,6 @@ button:hover {
   cursor: pointer;
 }
 
-.wishlist{
-  background-color: #53C1FF;
-}
-
-.cust_shadow{
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
-}
-
 .new_card{
   /* background: red; */
   width: 350px;
@@ -800,11 +805,28 @@ button:hover {
   opacity: 1;
 }
 
+.new_card:hover .card-img-box img{
+  scale: 1.1;
+  transition: .5s ease-in-out;
+}
 
 .desc_line{
   font-size: 11px;
 }
 
+.wishlist{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+  font-size: 16px;
+}
+
+.price_text{
+  font-weight: bold;
+  font-size: 18px;
+  color: black;
+}
 
 
 
@@ -853,6 +875,7 @@ body {
   font-family: "Poppins", sans-serif;
   zoom: 100%;
   user-zoom: fixed;
+
 }
   
   *{

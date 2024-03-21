@@ -4,6 +4,7 @@ import "./cartCard.css";
 import { Player } from '@lottiefiles/react-lottie-player';
 import { Toaster, toast } from 'sonner'
 import Swal from 'sweetalert2'
+import Footer from './Footer';
 
 function Cart(props) {
   // const [userId, setUserId] = useState("");
@@ -13,6 +14,12 @@ function Cart(props) {
   const [userName, setUserName] = useState("");
   const [cartItems, setCartItems] = useState([]);
   const [paymentID, setPaymentID] = useState("");
+  const [discount, setDiscount] = useState("");
+  const [singlePrice, setSinglePrice] = useState("");
+  const [DiscountedPrice, setDiscountedPrice] = useState("");
+  const [totalDiscountedAmount, setTotalDiscountedAmount] = useState("");
+  const [productsCount, setProductsCount] = useState("");
+  const [isAddDetails, setAddDetails] = useState(false);
 
   useEffect((userId) => {
     // Retrieve cart items from localStorage on component mount
@@ -88,8 +95,37 @@ function Cart(props) {
 
   const subtotal = cartItems.reduce((sum, item) => sum + item.price * 10, 0);
   const deliveryCharges = 350;
-  const taxes = 185;
-  const total = subtotal + deliveryCharges + taxes;
+  // const taxes = subtotal * 18/100;
+  const total = subtotal - totalDiscountedAmount + deliveryCharges;
+  const singlepriceArray = cartItems.map((item) => item.price * 10);
+
+  console.log(singlepriceArray);
+
+
+  // const totalDiscountedAmount = cartItems.map((item) => (<> {`${(item.price * 10)} - ${(item.price * 10)/100 }`}</>));
+
+  useEffect(() => {
+    const priceTen = cartItems.reduce((sum, item) => sum + item.price * 10, 0);
+    console.log('asdaasd', priceTen);
+    const totalDisamt = priceTen * 20 / 100;
+    const calcDiss = priceTen - totalDisamt;
+    const disscountedVal = priceTen - calcDiss;
+    setTotalDiscountedAmount(disscountedVal);
+    console.log('LPA', totalDiscountedAmount);
+  }, [subtotal])
+
+  // const totalDiscountedAmount = DiscountedPrice.map((sum, item) => sum + item);
+
+  console.log('disamt', totalDiscountedAmount);
+
+  useEffect(() => {
+    setDiscount(singlePrice / 100 * 20)
+    setDiscountedPrice(singlePrice - discount);
+  })
+
+  useEffect(() => {
+    setProductsCount(cartItems.length)
+  })
 
 
   // RAZOR PAY START
@@ -177,7 +213,7 @@ function Cart(props) {
           text: `Payment Reciept ID:  ${response.razorpay_payment_id}`,
           icon: "success"
         })
-  
+
       }
     };
 
@@ -215,60 +251,167 @@ function Cart(props) {
     event.target.src = defaultImageUrl;
   };
 
-  return (
+  const handleAddTab = () => {
+    setAddDetails(true);
+  }
+  const handleAddTabFalse = () => {
+    setAddDetails(false);
+  }
 
-    <div className="container cart_main d-flex gap-4 mt-4 pb-5">
-      <Toaster position="top-right" richColors closeButton />
-      {cartItems.length === 0 ? (
-        <div className="empty_cart">
-          <Player
-            autoplay
-            loop
-            src="https://lottie.host/88a15f65-b6e8-4941-96cc-ecab7daa3d33/iTRmDAEdRg.json"
-            style={{ height: '40%', width: '40%' }}
-          >
-          </Player>
-          <p className="text-center display-5">Your Cart is <sapn class="orange_text fw-bolder">Empty!!!</sapn></p>
-        </div>
-      ) : (
+
+  // for payment btn ------------------------------------
+  // onClick={() => handleProceedToPay(total.toFixed(2))}
+
+  return (
+    <>
+
+
+      {isAddDetails ?
         <>
-          <div className="cartCardPer">
-            {cartItems.map((item) => (
-              <div class="card bg-light">
-                {item && item.images && item.images.length > 0 && (
-                  <img src={item.images[0]} onError={handleImageError} className="card-img-top" alt={item.title} />
-                )}
-                <div class="card-body">
-                  <div class="text-section">
-                    <h5 class="card-title">{item.title}</h5>
-                    <p class="card-text limit_text">
-                      {item.description}
-                    </p>
+          <div className="container back_cart_btn" onClick={() => handleAddTabFalse()}><i class="uil uil-previous"></i> Back to cart</div>
+          <div className="container d-flex gap-4 mt-1 pb-5">
+            <div className="cartCardPer">
+              <div class="form_main">
+                <h1>Shipping</h1>
+                <p>Please enter your shipping details.</p>
+                <hr />
+                <div class="form">
+
+                  <div class="fields fields--2">
+                    <label class="field">
+                      <span class="field__label" for="firstname">First name</span>
+                      <input class="field__input" type="text" id="firstname" value="John" />
+                    </label>
+                    <label class="field">
+                      <span class="field__label" for="lastname">Last name</span>
+                      <input class="field__input" type="text" id="lastname" value="Doe" />
+                    </label>
                   </div>
-                  <div class="cta-section">
-                    <div className="orange_font">₹ {item.price * 10} /-</div>
-                    <a href="#" class="btn btn-danger" onClick={() => removeFromCart(item.id)} >
-                      <i class="uil uil-trash-alt"></i> Remove Item
-                    </a>
+                  <label class="field">
+                    <span class="field__label" for="address">Address</span>
+                    <input class="field__input" type="text" id="address" />
+                  </label>
+                  <div class="fields fields--2">
+                  <label class="field">
+                      <span class="field__label" for="zipcode">10-Digit Mobile Number</span>
+                      <input class="field__input" type="text" id="zipcode" />
+                    </label>
+                  <label class="field">
+                    <span class="field__label" for="country">Country</span>
+                    <select class="field__input" id="country">
+                      <option value=""></option>
+                      <option value="unitedstates">United States</option>
+                    </select>
+                  </label>
+                  </div>
+                  <div class="fields fields--3">
+                    <label class="field">
+                      <span class="field__label" for="zipcode">Zip code</span>
+                      <input class="field__input" type="text" id="zipcode" />
+                    </label>
+                    <label class="field">
+                      <span class="field__label" for="city">City</span>
+                      <input class="field__input" type="text" id="city" />
+                    </label>
+                    <label class="field">
+                      <span class="field__label" for="state">State</span>
+                      <select class="field__input" id="state">
+                        <option value=""></option>
+                      </select>
+                    </label>
                   </div>
                 </div>
+                <hr />
+                <button class="button">Save Address</button>
               </div>
-            ))}
-          </div>
-          <div>
-            <div className='summery'>
-              <h3 className="text-center mb-3">Summary</h3>
-              <div className="sum_flex"><p>Sub Total</p> <p>₹ {subtotal.toFixed(2)}/-</p></div>
-              <div className="sum_flex"><p>Dilivery Charges</p> <p>₹ {deliveryCharges}/-</p></div>
-              <div className="sum_flex"><p>Taxes</p> <p>₹ {taxes}/-</p></div>
-              <div className="sum_flex bottom_fix"><p>Total</p> <p>₹ {total}/-</p></div>
             </div>
-            <button className="btn proc_pay" onClick={() => handleProceedToPay(total.toFixed(2))}>Proceed to Pay <i class="uil uil-angle-double-right"></i></button>
-          </div>
-        </>
 
-      )}
-    </div>
+            <div className="summ_par">
+              <div className='summary'>
+                <h3 className="text-left mb-3">PRICE DETAILS</h3>
+                <div className="sum_flex"><p>Price ({productsCount} Products)</p> <p>₹ {subtotal}/-</p></div>
+                <div className="sum_flex"><p>Discount</p> <p className="text-green">- ₹ {totalDiscountedAmount}/-</p></div>
+                <div className="sum_flex"><p>Delivery Charges</p> <p>₹ {deliveryCharges}/-</p></div>
+                {/* <div className="sum_flex"><p>GST</p> <p>₹ {taxes}/-</p></div> */}
+                <div className="sum_flex bottom_fix"><b>Total Amount</b> <b>₹ {total}/-</b></div>
+                <p className="save_line">You will save ₹{totalDiscountedAmount} on this order</p>
+              </div>
+              <button className="btn proc_pay" onClick={() => handleProceedToPay(total.toFixed(2))}>PLACE ORDER <i class="uil uil-angle-double-right"></i></button>
+            </div>
+
+
+          </div>
+
+        </>
+        :
+        <div className="container cart_main d-flex gap-4 mt-4 pb-5">
+          <Toaster position="top-right" richColors closeButton />
+          {cartItems.length === 0 ? (
+            <div className="empty_cart">
+              <Player
+                autoplay
+                loop
+                src="https://lottie.host/88a15f65-b6e8-4941-96cc-ecab7daa3d33/iTRmDAEdRg.json"
+                style={{ height: '40%', width: '40%' }}
+              >
+              </Player>
+              <p className="text-center display-5">Your Cart is <sapn class="orange_text fw-bolder">Empty!!!</sapn></p>
+            </div>
+          ) : (
+            <>
+              <div className="cartCardPer">
+                {cartItems.map((item) => (
+                  <>
+                    <div class="card bg-transparent">
+                      {item && item.images && item.images.length > 0 && (
+                        <img src={item.images[0]} onError={handleImageError} className="card-img-top" alt={item.title} />
+                      )}
+                      <div class="card-body">
+                        <div class="text-section">
+                          <h5 class="card-title">{item.title}</h5>
+                          <p class="card-text limit_text">
+                            {item.description}
+                          </p>
+
+
+
+                        </div>
+                        <div class="cta-section">
+
+                          <div className="orange_font"> <del className="text-dashed"> ₹ {item.price * 10}</del> ₹ {`${item.price * 10}` - `${(item.price * 10) * 20 / 100}`} /-</div>
+                          <a href="#" class="btn remove_btn" onClick={() => removeFromCart(item.id)} >
+                            <i class="uil uil-trash-alt"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <hr className="divider" />
+                  </>
+                ))}
+              </div>
+              <div className="summ_par">
+                <div className='summary'>
+                  <h3 className="text-left mb-3">PRICE DETAILS</h3>
+                  <div className="sum_flex"><p>Price ({productsCount} Products)</p> <p>₹ {subtotal}/-</p></div>
+                  <div className="sum_flex"><p>Discount</p> <p className="text-green">- ₹ {totalDiscountedAmount}/-</p></div>
+                  <div className="sum_flex"><p>Delivery Charges</p> <p>₹ {deliveryCharges}/-</p></div>
+                  {/* <div className="sum_flex"><p>GST</p> <p>₹ {taxes}/-</p></div> */}
+                  <div className="sum_flex bottom_fix"><b>Total Amount</b> <b>₹ {total}/-</b></div>
+                  <p className="save_line">You will save ₹{totalDiscountedAmount} on this order</p>
+                </div>
+                <button className="btn proc_pay" onClick={() => handleAddTab()}>PLACE ORDER <i class="uil uil-angle-double-right"></i></button>
+              </div>
+            </>
+
+          )}
+        </div>
+
+      }
+
+
+
+      <Footer />
+    </>
   );
 }
 
