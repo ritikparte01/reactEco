@@ -132,6 +132,17 @@
   color: white;
 }
 
+.proc_pay_dis{
+  width: 100%;
+  background: #4e4e4e;
+  color: white;
+  cursor:not-allowed !important ;
+}
+.proc_pay_dis:hover{
+  background: #4f4f4f;
+  color: white;
+}
+
 .summ_par{
   width: 25%;
   position: sticky;
@@ -222,6 +233,7 @@ hr {
   border: 1px solid #89898967;
   padding: .5rem;
   border-radius: .25rem;
+  position: relative;
 }
 
 .field__label {
@@ -277,14 +289,47 @@ hr {
   background-color: #333;
 }
 
+.field__input option{
+  padding-left: 10px;
+}
+
+.red_star{
+  color: red;
+  display: inline-block;
+  font-size: 14px;
+  height: 1px;
+  line-height: 1;
+}
 
 
+.product_cout_link{
+  color: orangered;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+}
 
 
+.error_text{
+  color: black;
+  position: absolute;
+  bottom: -40px;
+  font-size: 10px;
+  background: #ffb8bc;
+  padding: 10px;
+  box-shadow: 3px 3px 10px rgba(9, 30, 66, 0.13);
+  z-index: 1;
+  
+}
 
+.error_text img{
+  position: absolute;
+  top: -8px;
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
 
-
-
+}
 
 
   @media screen and (max-width: 475px) {

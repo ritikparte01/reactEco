@@ -5,6 +5,8 @@ import { Player } from '@lottiefiles/react-lottie-player';
 import { Toaster, toast } from 'sonner'
 import Swal from 'sweetalert2'
 import Footer from './Footer';
+import up_arrow from '../Imgs/up_arrow.png'
+
 
 function Cart(props) {
   // const [userId, setUserId] = useState("");
@@ -20,6 +22,7 @@ function Cart(props) {
   const [totalDiscountedAmount, setTotalDiscountedAmount] = useState("");
   const [productsCount, setProductsCount] = useState("");
   const [isAddDetails, setAddDetails] = useState(false);
+  const [isFormFilled, setIsFormFilled] = useState(false);
 
   useEffect((userId) => {
     // Retrieve cart items from localStorage on component mount
@@ -81,6 +84,7 @@ function Cart(props) {
       }
     }).then((res) => {
       setUserName(res.data.name);
+      console.log('Auth log', res.data);
     })
   }, [])
 
@@ -258,6 +262,9 @@ function Cart(props) {
     setAddDetails(false);
   }
 
+  const formFilled = () => {
+
+  }
 
   // for payment btn ------------------------------------
   // onClick={() => handleProceedToPay(total.toFixed(2))}
@@ -268,75 +275,133 @@ function Cart(props) {
 
       {isAddDetails ?
         <>
-          <div className="container back_cart_btn" onClick={() => handleAddTabFalse()}><i class="uil uil-previous"></i> Back to cart</div>
+          <div className="container back_cart_btn" onClick={() => handleAddTabFalse()}><i className="uil uil-previous"></i> Back to cart</div>
           <div className="container d-flex gap-4 mt-1 pb-5">
             <div className="cartCardPer">
-              <div class="form_main">
+              <div className="form_main">
                 <h1>Shipping</h1>
                 <p>Please enter your shipping details.</p>
                 <hr />
-                <div class="form">
+                <form action="" className="form">
 
-                  <div class="fields fields--2">
-                    <label class="field">
-                      <span class="field__label" for="firstname">First name</span>
-                      <input class="field__input" type="text" id="firstname" value="John" />
+                  <div className="fields fields--2">
+                    <label className="field">
+                      <span className="field__label" for="firstname">First name <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="firstname" />
+                      <div className="error_text">
+                        <img src={up_arrow} />
+                        <span>Enter a Valid First Name</span>
+                        </div>
                     </label>
-                    <label class="field">
-                      <span class="field__label" for="lastname">Last name</span>
-                      <input class="field__input" type="text" id="lastname" value="Doe" />
+                    <label className="field">
+                      <span className="field__label" for="lastname">Last name <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="lastname" value="" />
+                      <div className="error_text">
+                        <img src={up_arrow} />
+                        <span>Enter a Valid Last Name</span>
+                        </div>
                     </label>
                   </div>
-                  <label class="field">
-                    <span class="field__label" for="address">Address</span>
-                    <input class="field__input" type="text" id="address" />
+                  <label className="field">
+                    <span className="field__label" for="address">Address <p className="red_star">*</p></span>
+                    <input className="field__input" type="text" id="address" />
+                    <div className="error_text">
+                        <img src={up_arrow} />
+                        <span>Enter a Valid Address</span>
+                        </div>
                   </label>
-                  <div class="fields fields--2">
-                  <label class="field">
-                      <span class="field__label" for="zipcode">10-Digit Mobile Number</span>
-                      <input class="field__input" type="text" id="zipcode" />
+                  <div className="fields fields--2">
+                    <label className="field">
+                      <span className="field__label" for="zipcode">10-Digit Mobile Number <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="zipcode" />
+                      <div className="error_text">
+                        <img src={up_arrow} />
+                        <span>Enter a Valid Phone Number</span>
+                        </div>
                     </label>
-                  <label class="field">
-                    <span class="field__label" for="country">Country</span>
-                    <select class="field__input" id="country">
-                      <option value=""></option>
-                      <option value="unitedstates">United States</option>
-                    </select>
-                  </label>
-                  </div>
-                  <div class="fields fields--3">
-                    <label class="field">
-                      <span class="field__label" for="zipcode">Zip code</span>
-                      <input class="field__input" type="text" id="zipcode" />
-                    </label>
-                    <label class="field">
-                      <span class="field__label" for="city">City</span>
-                      <input class="field__input" type="text" id="city" />
-                    </label>
-                    <label class="field">
-                      <span class="field__label" for="state">State</span>
-                      <select class="field__input" id="state">
+                    <label className="field">
+                      <span className="field__label" for="country">Country <p className="red_star">*</p></span>
+                      <select className="field__input" id="country">
                         <option value=""></option>
+                        <option value="IN">India</option>
+                      </select>
+                      <div className="error_text">
+                        <img src={up_arrow} />
+                        <span>Please Select Your Country</span>
+                        </div>
+                    </label>
+                  </div>
+                  <div className="fields fields--3">
+                    <label className="field">
+                      <span className="field__label" for="zipcode">Zip code <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="zipcode" />
+                    </label>
+                    <label className="field">
+                      <span className="field__label" for="city">City <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="city" />
+                    </label>
+                    <label className="field">
+                      <span className="field__label" for="state">State <p className="red_star">*</p></span>
+                      <select className="field__input" id="state">
+                        <option value=""></option>
+                        <option value="SelectState">Select State</option>
+                        <option value="Andra Pradesh">Andra Pradesh</option>
+                        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                        <option value="Assam">Assam</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="Chhattisgarh">Chhattisgarh</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Himachal Pradesh">Himachal Pradesh</option>
+                        <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                        <option value="Jharkhand">Jharkhand</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Madya Pradesh">Madya Pradesh</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Manipur">Manipur</option>
+                        <option value="Meghalaya">Meghalaya</option>
+                        <option value="Mizoram">Mizoram</option>
+                        <option value="Nagaland">Nagaland</option>
+                        <option value="Orissa">Orissa</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Sikkim">Sikkim</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Tripura">Tripura</option>
+                        <option value="Uttaranchal">Uttaranchal</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="West Bengal">West Bengal</option>
+                        <option disabled>UNION Territories</option>
+                        <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                        <option value="Chandigarh">Chandigarh</option>
+                        <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                        <option value="Daman and Diu">Daman and Diu</option>
+                        <option value="Delhi">Delhi</option>
+                        <option value="Lakshadeep">Lakshadeep</option>
+                        <option value="Pondicherry">Pondicherry</option>
                       </select>
                     </label>
                   </div>
-                </div>
+                </form>
                 <hr />
-                <button class="button">Save Address</button>
+                <button className="button">Save Address</button>
               </div>
             </div>
 
             <div className="summ_par">
               <div className='summary'>
                 <h3 className="text-left mb-3">PRICE DETAILS</h3>
-                <div className="sum_flex"><p>Price ({productsCount} Products)</p> <p>₹ {subtotal}/-</p></div>
+                <div className="sum_flex"><p>Price <span className="product_cout_link" onClick={() => handleAddTabFalse()}>({productsCount} Products)</span></p> <p>₹ {subtotal}/-</p></div>
                 <div className="sum_flex"><p>Discount</p> <p className="text-green">- ₹ {totalDiscountedAmount}/-</p></div>
                 <div className="sum_flex"><p>Delivery Charges</p> <p>₹ {deliveryCharges}/-</p></div>
                 {/* <div className="sum_flex"><p>GST</p> <p>₹ {taxes}/-</p></div> */}
                 <div className="sum_flex bottom_fix"><b>Total Amount</b> <b>₹ {total}/-</b></div>
                 <p className="save_line">You will save ₹{totalDiscountedAmount} on this order</p>
               </div>
-              <button className="btn proc_pay" onClick={() => handleProceedToPay(total.toFixed(2))}>PLACE ORDER <i class="uil uil-angle-double-right"></i></button>
+              <button className={`${isFormFilled ? 'proc_pay btn' : 'proc_pay_dis btn'}`} onClick={isFormFilled ? () => handleProceedToPay(total.toFixed(2)) : null}>PLACE ORDER 2<i className="uil uil-angle-double-right"></i></button>
             </div>
 
 
@@ -355,32 +420,32 @@ function Cart(props) {
                 style={{ height: '40%', width: '40%' }}
               >
               </Player>
-              <p className="text-center display-5">Your Cart is <sapn class="orange_text fw-bolder">Empty!!!</sapn></p>
+              <p className="text-center display-5">Your Cart is <sapn className="orange_text fw-bolder">Empty!!!</sapn></p>
             </div>
           ) : (
             <>
               <div className="cartCardPer">
                 {cartItems.map((item) => (
                   <>
-                    <div class="card bg-transparent">
+                    <div className="card bg-transparent">
                       {item && item.images && item.images.length > 0 && (
                         <img src={item.images[0]} onError={handleImageError} className="card-img-top" alt={item.title} />
                       )}
-                      <div class="card-body">
-                        <div class="text-section">
-                          <h5 class="card-title">{item.title}</h5>
-                          <p class="card-text limit_text">
+                      <div className="card-body">
+                        <div className="text-section">
+                          <h5 className="card-title">{item.title}</h5>
+                          <p className="card-text limit_text">
                             {item.description}
                           </p>
 
 
 
                         </div>
-                        <div class="cta-section">
+                        <div className="cta-section">
 
                           <div className="orange_font"> <del className="text-dashed"> ₹ {item.price * 10}</del> ₹ {`${item.price * 10}` - `${(item.price * 10) * 20 / 100}`} /-</div>
-                          <a href="#" class="btn remove_btn" onClick={() => removeFromCart(item.id)} >
-                            <i class="uil uil-trash-alt"></i>
+                          <a href="#" className="btn remove_btn" onClick={() => removeFromCart(item.id)} >
+                            <i className="uil uil-trash-alt"></i>
                           </a>
                         </div>
                       </div>
@@ -399,7 +464,7 @@ function Cart(props) {
                   <div className="sum_flex bottom_fix"><b>Total Amount</b> <b>₹ {total}/-</b></div>
                   <p className="save_line">You will save ₹{totalDiscountedAmount} on this order</p>
                 </div>
-                <button className="btn proc_pay" onClick={() => handleAddTab()}>PLACE ORDER <i class="uil uil-angle-double-right"></i></button>
+                <button className="btn proc_pay" onClick={() => handleAddTab()}>PLACE ORDER <i className="uil uil-angle-double-right"></i></button>
               </div>
             </>
 
