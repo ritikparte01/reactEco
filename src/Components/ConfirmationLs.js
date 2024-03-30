@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 
-function Confirmation({ tokencode, setTokenCode }) {
+function ConfirmationLs({ tokencode, setTokenCode }) {
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState("");
   const [singleProduct, setSingleProduct] = useState("");
@@ -16,13 +16,13 @@ function Confirmation({ tokencode, setTokenCode }) {
 
   const localToken = localStorage.getItem('userToken');
 
-  useEffect(() => {
-    setProdID(localStorage.getItem('buyBtnID'));
-      setCheckBlankId(true);
-  }, [])
+//   useEffect(() => {
+//     setProdID(localStorage.getItem('buyBtnID'));
+//       setCheckBlankId(true);
+//   }, [])
   
-  console.log('PROD ID DEL FOR CART',checkBlankId)
-  console.log(prodID);
+//   console.log('PROD ID DEL FOR CART',checkBlankId)
+//   console.log(prodID);
 
   useEffect(() => {
     axios({
@@ -44,7 +44,7 @@ function Confirmation({ tokencode, setTokenCode }) {
         .then(response => {
           setSingleProduct(response.data);
           console.log("Single Product:", response.data);
-          setSinglePrice(response.data.price * 10);
+        //   setSinglePrice(response.data.price * 10);
           console.log(singlePrice, 'Single Price 10');
         })
         .catch(error => {
@@ -85,12 +85,14 @@ function Confirmation({ tokencode, setTokenCode }) {
   // const history = useNavigate(); console.log(history.location.state.from);
 
 
-  // useEffect((userId) => {
-  //   const storedCartItems = localStorage.getItem(`cartItems_${userId}`);
-  //   if (storedCartItems) {
-  //     setCartItems(JSON.parse(storedCartItems));
-  //   }
-  // }, []);
+  useEffect((userId) => {
+    const storedCartItems = localStorage.getItem(`cartItems`);
+    if (storedCartItems) {
+      setCartItems(JSON.parse(storedCartItems));
+      setSinglePrice(cartItems * 10);
+    console.log('SORTED CART',storedCartItems);
+    }
+  }, []);
 
   console.log('CONF CART', cartItems)
 
@@ -112,31 +114,8 @@ function Confirmation({ tokencode, setTokenCode }) {
                   </div>
                   <div class="card_order shadow-0 border mb-4">
                     <div class="card-body">
-
-                    {checkBlankId ? 
-                      <div class="row">
-                        <div class="col-md-2">
-                          {singleProduct?.images?.length > 0 && <img className="img-fluid" src={singleProduct.images[0]} alt="Product" />}
-                        </div>
-                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                          <p class="text-muted mb-0">{singleProduct.title}</p>
-                        </div>
-                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                          <p class="text-muted mb-0 small">{singleProduct?.category?.name}</p>
-                        </div>
-                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                          <p class="text-muted mb-0 small">Size: </p>
-                        </div>
-                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                          <p class="text-muted mb-0 small">Qty: 1</p>
-                        </div>
-                        <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                          <p class="text-muted mb-0 small">₹ {DiscountedPrice}</p>
-                        </div>
-                      </div>
-                      :
                       <div>
-                    {/* {cartItems.map((item) => (
+                    {cartItems.map((item) => (
                      <div class="row mb-2 border-bottom pb-2">
                      <div class="col-md-2">
                        {item?.images?.length > 0 && <img className="img-fluid" src={item.images[0]} alt="Product" />}
@@ -157,9 +136,9 @@ function Confirmation({ tokencode, setTokenCode }) {
                        <p class="text-muted mb-0 small">₹ {item.price * 20 / 100}</p>
                      </div>
                    </div>
-                    ))} */}
+                    ))}
                       </div>
-                    }
+                
                       <div class="row d-flex align-items-center pt-3">
                         <div class="col-md-2">
                           <p class="text-black fw-bold mb-0 small">Track Order</p>
@@ -219,4 +198,4 @@ function Confirmation({ tokencode, setTokenCode }) {
   )
 }
 
-export default Confirmation
+export default ConfirmationLs;

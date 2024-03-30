@@ -745,6 +745,9 @@ button:hover {
 
 .card_order_main .card-header{
   background-color: #fff9f5;
+  position: sticky;
+  top: 80px;
+  border-top: 1px solid #dbdbdb;
 }
 
 .card_div{

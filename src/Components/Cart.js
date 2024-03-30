@@ -6,6 +6,7 @@ import { Toaster, toast } from 'sonner'
 import Swal from 'sweetalert2'
 import Footer from './Footer';
 import up_arrow from '../Imgs/up_arrow.png'
+import { useNavigate } from 'react-router-dom';
 
 
 function Cart(props) {
@@ -23,6 +24,17 @@ function Cart(props) {
   const [productsCount, setProductsCount] = useState("");
   const [isAddDetails, setAddDetails] = useState(false);
   const [isFormFilled, setIsFormFilled] = useState(false);
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    address: '',
+    phone:'',
+    zipcode: '',
+    country: '',
+    city: '',
+    state: '',
+  });
+  const [errors, setErrors] = useState({});
 
   useEffect((userId) => {
     // Retrieve cart items from localStorage on component mount
@@ -103,7 +115,7 @@ function Cart(props) {
   const total = subtotal - totalDiscountedAmount + deliveryCharges;
   const singlepriceArray = cartItems.map((item) => item.price * 10);
 
-  console.log(singlepriceArray);
+  console.log('single p array' ,singlepriceArray);
 
 
   // const totalDiscountedAmount = cartItems.map((item) => (<> {`${(item.price * 10)} - ${(item.price * 10)/100 }`}</>));
@@ -182,6 +194,8 @@ function Cart(props) {
 
 
   // DEMO RAZORPAY
+  
+  let navigate = useNavigate();
 
   const loadScript = (src) => {
     return new Promise((resolve) => {
@@ -217,7 +231,7 @@ function Cart(props) {
           text: `Payment Reciept ID:  ${response.razorpay_payment_id}`,
           icon: "success"
         })
-
+        navigate('/confirmationls');
       }
     };
 
@@ -230,6 +244,8 @@ function Cart(props) {
 
   const handleProceedToPay = () => {
     loadRazorpayScript();
+    // localStorage.removeItem('buyBtnID');
+    // localStorage.setItem('confCart', JSON.stringify(updatedCartItems));
   };
 
   const loadRazorpayScript = async () => {
@@ -261,10 +277,55 @@ function Cart(props) {
   const handleAddTabFalse = () => {
     setAddDetails(false);
   }
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
 
-  const formFilled = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Perform form validation here
+    // Example validation for required fields
+    const newErrors = {};
+    if (!formData.firstname) {
+      newErrors.firstname = 'Please enter your first name';
+    }
+    if (!formData.lastname) {
+      newErrors.lastname = 'Please enter your last name';
+    }
+    if (!formData.address) {
+      newErrors.address = 'Please enter your address';
+    }
+    if(!formData.phone){
+      newErrors.phone = "Please Enter Your Number";
+    }
+    if (!formData.zipcode) {
+      newErrors.zipcode = 'Please enter your zip code';
+    }
+    if (!formData.country) {
+      newErrors.country = 'Please select your country';
+    }
+    if (!formData.city) {
+      newErrors.city = 'Please enter your city';
+    }
+    if (!formData.state) {
+      newErrors.state = 'Please select your state';
+    }
+   
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length === 0) {
+      setIsFormFilled(true);
+      console.log(isFormFilled, 'FORM FILL');
+    }
 
-  }
+    
+
+  };
+  // const ResetForm = (e) =>{
+  //   e.target.value = ""
+  // }
 
   // for payment btn ------------------------------------
   // onClick={() => handleProceedToPay(total.toFixed(2))}
@@ -282,67 +343,53 @@ function Cart(props) {
                 <h1>Shipping</h1>
                 <p>Please enter your shipping details.</p>
                 <hr />
-                <form action="" className="form">
-
+                <form action="" className="form" onSubmit={handleSubmit}>
                   <div className="fields fields--2">
                     <label className="field">
-                      <span className="field__label" for="firstname">First name <p className="red_star">*</p></span>
-                      <input className="field__input" type="text" id="firstname" />
-                      <div className="error_text">
-                        <img src={up_arrow} />
-                        <span>Enter a Valid First Name</span>
-                        </div>
+                      <span className="field__label" htmlFor="firstname">First name <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="firstname" value={formData.firstname} onChange={handleChange} />
+                      {errors.firstname && <div className="error_text"><img src={up_arrow} /><span>{errors.firstname}</span></div>}
                     </label>
                     <label className="field">
-                      <span className="field__label" for="lastname">Last name <p className="red_star">*</p></span>
-                      <input className="field__input" type="text" id="lastname" value="" />
-                      <div className="error_text">
-                        <img src={up_arrow} />
-                        <span>Enter a Valid Last Name</span>
-                        </div>
+                      <span className="field__label" htmlFor="lastname">Last name <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="lastname" value={formData.lastname} onChange={handleChange} />
+                      {errors.lastname && <div className="error_text"><img src={up_arrow} /><span>{errors.lastname}</span></div>}
                     </label>
                   </div>
                   <label className="field">
-                    <span className="field__label" for="address">Address <p className="red_star">*</p></span>
-                    <input className="field__input" type="text" id="address" />
-                    <div className="error_text">
-                        <img src={up_arrow} />
-                        <span>Enter a Valid Address</span>
-                        </div>
+                    <span className="field__label" htmlFor="address">Address <p className="red_star">*</p></span>
+                    <input className="field__input" type="text" id="address" value={formData.address} onChange={handleChange} />
+                    {errors.address && <div className="error_text"><img src={up_arrow} /><span>{errors.address}</span></div>}
                   </label>
                   <div className="fields fields--2">
                     <label className="field">
-                      <span className="field__label" for="zipcode">10-Digit Mobile Number <p className="red_star">*</p></span>
-                      <input className="field__input" type="text" id="zipcode" />
-                      <div className="error_text">
-                        <img src={up_arrow} />
-                        <span>Enter a Valid Phone Number</span>
-                        </div>
+                      <span className="field__label" htmlFor="phone">10-Digit Mobile Number <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="phone" value={formData.phone} onChange={handleChange} />
+                      {errors.zipcode && <div className="error_text"><img src={up_arrow} /><span>{errors.phone}</span></div>}
                     </label>
                     <label className="field">
-                      <span className="field__label" for="country">Country <p className="red_star">*</p></span>
-                      <select className="field__input" id="country">
+                      <span className="field__label" htmlFor="country">Country <p className="red_star">*</p></span>
+                      <select className="field__input" id="country" value={formData.country} onChange={handleChange}>
                         <option value=""></option>
                         <option value="IN">India</option>
                       </select>
-                      <div className="error_text">
-                        <img src={up_arrow} />
-                        <span>Please Select Your Country</span>
-                        </div>
+                      {errors.country && <div className="error_text"><img src={up_arrow} /><span>{errors.country}</span></div>}
                     </label>
                   </div>
                   <div className="fields fields--3">
                     <label className="field">
-                      <span className="field__label" for="zipcode">Zip code <p className="red_star">*</p></span>
-                      <input className="field__input" type="text" id="zipcode" />
+                      <span className="field__label" htmlFor="zipcode">Zip code <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="zipcode" value={formData.zipcode} onChange={handleChange} />
+                      {errors.zipcode && <div className="error_text"><img src={up_arrow} /><span>{errors.zipcode}</span></div>}
                     </label>
                     <label className="field">
-                      <span className="field__label" for="city">City <p className="red_star">*</p></span>
-                      <input className="field__input" type="text" id="city" />
+                      <span className="field__label" htmlFor="city">City <p className="red_star">*</p></span>
+                      <input className="field__input" type="text" id="city" value={formData.city} onChange={handleChange} />
+                      {errors.city && <div className="error_text"><img src={up_arrow} /><span>{errors.city}</span></div>}
                     </label>
                     <label className="field">
-                      <span className="field__label" for="state">State <p className="red_star">*</p></span>
-                      <select className="field__input" id="state">
+                      <span className="field__label" htmlFor="state">State <p className="red_star">*</p></span>
+                      <select className="field__input" id="state" value={formData.state} onChange={handleChange}>
                         <option value=""></option>
                         <option value="SelectState">Select State</option>
                         <option value="Andra Pradesh">Andra Pradesh</option>
@@ -383,11 +430,13 @@ function Cart(props) {
                         <option value="Lakshadeep">Lakshadeep</option>
                         <option value="Pondicherry">Pondicherry</option>
                       </select>
+                      {errors.state && <div className="error_text"><img src={up_arrow} /><span>{errors.state}</span></div>}
                     </label>
                   </div>
+                <button type="submit" className="btn btn-success text-center justify-content-center w-25">Save Address</button>
+                {/* <button type="reset" className="button" onClick={() => ResetForm()}>Clear Form</button> */}
                 </form>
                 <hr />
-                <button className="button">Save Address</button>
               </div>
             </div>
 

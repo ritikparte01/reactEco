@@ -18,7 +18,8 @@ function ProdDetail() {
     const [paymentID, setPaymentID] = useState("");
     const [isLoading, setLoading] = useState(true);
     const [isClothes, setIsClothes] = useState(false);
-
+    const [delivaryCharges, setDelivaryCharges] = useState(350);
+    const [amt, setAmt] = useState("");
 
 
     console.log(localStorage.getItem('buyBtnID'));
@@ -40,6 +41,7 @@ function ProdDetail() {
     useEffect(() => {
         setDiscount(singlePrice / 100 * 20)
         setDiscountedPrice(singlePrice - discount);
+        setAmt(DiscountedPrice + delivaryCharges)
     })
 
     useEffect(() => {
@@ -146,7 +148,7 @@ function ProdDetail() {
         const loaded = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
         if (loaded) {
             console.log('Razorpay script loaded successfully');
-            initializeRazorpay(DiscountedPrice);
+            initializeRazorpay(amt);
         } else {
             console.error('Failed to load Razorpay script');
         }
@@ -155,7 +157,7 @@ function ProdDetail() {
     useEffect(() => {
         // Your useEffect will be triggered only when the 'DiscountedPrice' state changes
         // (assuming it's updated when the user selects items or performs relevant actions)
-    }, [DiscountedPrice]);
+    }, [amt]);
 
     // RAZOR PAY END 
 

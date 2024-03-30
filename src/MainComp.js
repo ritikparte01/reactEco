@@ -9,6 +9,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import Cart from './Components/Cart';
 import ProdDetail from "./Components/ProdDetail";
 import Confirmation from "./Components/Confirmation";
+import ConfirmationLs from "./Components/ConfirmationLs";
 
 function MainComp({tokencode, setTokenCode}) {
     // const [token, settoken] = useState(localStorage.getItem("userToken") ?? null );
@@ -39,6 +40,7 @@ function MainComp({tokencode, setTokenCode}) {
         <Route path='/cart' element={<Cart />}/>  
         <Route path='/detail' element={<ProdDetail />}/>  
         <Route path='/confirmation' element={<Confirmation />}/>  
+        <Route path='/confirmationls' element={<ConfirmationLs />}/>  
       </Routes>
       </Router>
     
