@@ -1,6 +1,6 @@
 import React from "react";
 import './Footer.css'
-import logo from '../Imgs/logo.png'
+import logo from '../Imgs/white_logo.png'
 
 function Footer() {
   return (
@@ -11,7 +11,7 @@ function Footer() {
             <div className="row">
               <div className="col-md-6 col-lg-3 about-footer">
                 {/* <h3>Lorem Ipsum dummy text </h3> */}
-                <img src={logo} alt="" />
+                <img width={180} src={logo} alt="" />
                 <ul>
                   <li>
                     <a href="tel:(010) 1234 4321">

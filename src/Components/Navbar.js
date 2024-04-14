@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../Imgs/logo.png";
+import logo from "../Imgs/black_logo.png";
 import Cart from './Cart'
+import { refresh } from "aos";
+import axios from "axios";
+import { Player, Controls } from '@lottiefiles/react-lottie-player';
+import { useNavigate  } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({tokencode, setTokenCode}) {
+  // const [localToken, setLocalToken] = useState("");
+  const [userId, setUserId] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userRole, setUserRole] = useState("");
+
+
   function toggle() {
     var x = document.getElementById("menu");
     if (x.style.display === "none") {
@@ -13,18 +24,39 @@ function Navbar() {
     }
   }
 
+  let navigate = useNavigate();
 
-  // function cartShow() {
-  //   var c = document.getElementById("exampleModal");
-  //   if (c.style.display === "none") {
-  //     c.style.display = "block";
-  //   } else {
-  //     c.style.display = "none";
-  //   }
-  // }
+  const Logout = () =>{
+    if (typeof window.refresh === 'function') {
+      window.refresh();
+    }
+    setTokenCode("");
+    localStorage.clear('userToken');
+    navigate('/');
+    // window.refresh();
+  }
+
+  const localToken = localStorage.getItem('userToken');
+
+  useEffect(() => {
+      axios({
+        method: 'GET',
+        url: 'https://api.escuelajs.co/api/v1/auth/profile',
+        headers:{
+          Authorization: `Bearer ${localToken}`,
+        }
+      }).then((res)=>{
+        console.log('Auth log',res);
+        setUserName(res.data.name);
+        setUserEmail(res.data.email);
+        setUserRole(res.data.role);
+        setUserId(res.data.id);
+      })
+  }, [tokencode])
+  
 
   return (
-    <div>
+    <div className="nav_par">
       <div className="container navbar">
       {/* <Cart /> */}
         <div className="logo">
@@ -32,7 +64,7 @@ function Navbar() {
         </div>
         <div className="bars">
           <a onClick={toggle}>
-            <i class="uil uil-align-right"></i>
+            <i className="uil uil-align-right"></i>
           </a>
         </div>
         <div className="menu" id="menu">
@@ -57,14 +89,44 @@ function Navbar() {
                 Contact
               </Link>
             </li>
-            <li>
+            {/* <li>
               <button
                 type="button"
                 className="btn btn-orange"
                 data-bs-toggle="modal" data-bs-target="#exampleModal"
               >
-                <i class="uil uil-shopping-bag"></i>
+                <i className="uil uil-shopping-bag"></i>
               </button>
+            </li> */}
+             <li>
+              <Link className="menu-link" to="/cart">
+              <button
+                type="button"
+                className="btn-orange"
+              >
+                {/* <i className="uil uil-shopping-bag"></i> */}
+                  <Player
+                    autoplay
+                    loop
+                    src="https://lottie.host/e755e47b-5c14-4857-90d9-aa6223c88db1/EPYxhttqDn.json"
+                    style={{ height: '50px', width: '50px' }}
+                  >
+                  </Player>
+              </button>
+              </Link>
+            </li>
+            <li>
+            <div className="dropdown">
+              <button className="btn btn-dark dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Hi ! {userName}
+              </button>
+              <ul className="dropdown-menu">
+                <li><div className="drop_flex"><p>User ID </p><span>{userId}</span></div></li>
+                <li><div className="drop_flex"><p>Email </p><span>{userEmail}</span></div></li>
+                <li><div className="drop_flex"><p>Role </p><span>{userRole}</span></div></li>
+                <li><button className="dropdown-item btn btn-danger logout_btn" onClick={Logout}>Logout</button></li>
+              </ul>
+            </div>
             </li>
           </ul>
         </div>
