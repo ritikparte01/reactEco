@@ -8,7 +8,7 @@ import Contact from './Components/Contact';
 import 'react-loading-skeleton/dist/skeleton.css'
 import Cart from './Components/Cart';
 import ProdDetail from "./Components/ProdDetail";
-import Confirmation from "./Components/Confirmation";
+import Confirmation from "./Components/confirmation";
 import ConfirmationLs from "./Components/ConfirmationLs";
 
 function MainComp({tokencode, setTokenCode}) {

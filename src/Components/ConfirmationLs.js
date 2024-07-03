@@ -13,6 +13,9 @@ function ConfirmationLs({ tokencode, setTokenCode }) {
   const [discount, setDiscount] = useState("");
   const [checkBlankId, setCheckBlankId] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [cartPrice, setCartPrice] = useState([]);
+  // const [subTotal ,setSubTotal] = useState("");
+
 
   const localToken = localStorage.getItem('userToken');
 
@@ -56,6 +59,8 @@ function ConfirmationLs({ tokencode, setTokenCode }) {
   useEffect(() => {
     setDiscount(singlePrice / 100 * 20)
     setDiscountedPrice(singlePrice - discount);
+    
+    console.log('Cart Price New', DiscountedPrice);
   })
 
   const deliveryCharges = 350;
@@ -86,15 +91,34 @@ function ConfirmationLs({ tokencode, setTokenCode }) {
 
 
   useEffect((userId) => {
-    const storedCartItems = localStorage.getItem(`cartItems`);
+    const storedCartItems = localStorage.getItem(`cartItems_1`);
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
       setSinglePrice(cartItems * 10);
+      // setCartPrice(storedCartItems.price);
     console.log('SORTED CART',storedCartItems);
     }
   }, []);
 
-  console.log('CONF CART', cartItems)
+  console.log('CONF CART', cartItems);
+
+  const singlepriceArray = cartItems.map((item) => item.price * 10);
+
+
+  const subTotal = singlepriceArray.reduce((sum, item) => sum + item);
+
+  const discountArray = cartItems.map((item) => (item.price * 20) / 10 )
+
+  // const discountArray = cartItems.map((item) => {
+  //  const tenPrice =  (item.price * 20)/10;
+  //  console.log('tenP', tenPrice);
+
+  // });
+
+  console.log('disArray', discountArray);
+console.log('subt', subTotal);
+
+  console.log('single p array' ,singlepriceArray);
 
   return (
     <div className='container'>
@@ -133,7 +157,8 @@ function ConfirmationLs({ tokencode, setTokenCode }) {
                        <p class="text-muted mb-0 small">Qty: 1</p>
                      </div>
                      <div class="col-md-2 text-center d-flex justify-content-center align-items-center">
-                       <p class="text-muted mb-0 small">₹ {item.price * 20 / 100}</p>
+                       {/* <p class="text-muted mb-0 small">₹ {(item.price * 10)/100 }</p> */}
+                       <p class="text-muted orange_font mb-0 small"><del className="text-dashed"> ₹ {item.price * 10}</del> ₹ {`${item.price * 10}` - `${(item.price * 10) * 20 / 100}`} /-</p>
                      </div>
                    </div>
                     ))}
@@ -165,7 +190,7 @@ function ConfirmationLs({ tokencode, setTokenCode }) {
 
                   <div class="d-flex justify-content-between pt-2">
                     <p class="fw-bold mb-0">Order Details</p>
-                    <p class="text-black mb-0"><span class="fw-bold me-4">Price</span> ₹ {singlePrice}</p>
+                    <p class="text-black mb-0"><span class="fw-bold me-4">Price</span> ₹ {subTotal} /-</p>
                   </div>
 
                   <div class="d-flex justify-content-between pt-2">

@@ -38,7 +38,7 @@ function Cart(props) {
 
   useEffect((userId) => {
     // Retrieve cart items from localStorage on component mount
-    const storedCartItems = localStorage.getItem(`cartItems_${userId}`);
+    const storedCartItems = localStorage.getItem(`cartItems_1`);
     if (storedCartItems) {
       setCartItems(JSON.parse(storedCartItems));
     }

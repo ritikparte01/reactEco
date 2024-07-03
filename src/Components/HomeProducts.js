@@ -89,7 +89,8 @@ const addToCart = (productId, userId) => {
   const productToAdd = product.find((item) => item.id === productId);
 
   // Retrieve cart items for the specific user from local storage
-  const userCartKey = `cartItems_${userId}`;
+  // const userCartKey = `cartItems_${userId}`;
+  const userCartKey = `cartItems_1`;
   const existingCartItems = JSON.parse(localStorage.getItem(userCartKey)) || [];
 
   if (!existingCartItems.find((item) => item.id === productId)) {
