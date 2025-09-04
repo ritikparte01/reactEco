@@ -19,13 +19,13 @@ function Hero() {
         <div className="container home d-flex">
             <div className="section-left w-50">
                 <div className="hero-text">
-                    <h4>The Best Online Store</h4>
-                    <h1 className='fw-bolder display-3'>Ecommerce.</h1>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolores odio ea neque
+                    <h4>The <span className='orange_text'>Best</span> Online Store</h4>
+                    <h1 className='fw-bolder display-3'><span className='orange_text'>E</span>commerce.</h1>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.<span className='orange_text'> Dolores odio ea neque</span>
                     </p>
                 </div>
                 <div className="hero-vid">
-                <img src={play} alt="" />
+                {/* <img src={play} alt="" /> */}
                 </div>
             </div>
             <div className="section-right w-50">

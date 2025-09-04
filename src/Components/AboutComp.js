@@ -14,7 +14,7 @@ function AboutComp(props) {
           tempore. Esse ad similique reiciendis.
         </p>
         <a href="#">
-          Learn More <i class="uil uil-arrow-from-right"></i>
+          Learn More <i className="uil uil-arrow-from-right"></i>
         </a>
       </div>
 
